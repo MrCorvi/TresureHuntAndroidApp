@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="make_button">Make</string>
+    <string name="play_button">Play</string>
+    <string name="continue_button">Continue</string>
+
+    <string name="creator_text">Creator Name</string>
+
 </resources>

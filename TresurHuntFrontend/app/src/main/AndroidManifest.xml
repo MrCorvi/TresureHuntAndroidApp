@@ -9,19 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity android:name=".MakerMapActivity"></activity>
+        <activity android:name=".FormMakerActivity" />
+        <activity
+            android:name=".GameActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" /> <!-- Indica che sara' la prima Activity ad essere visualizzata quando verra' aperta l'app -->
             </intent-filter>
         </activity> <!-- Va aggiunta questa parte ogni volta che si aggiunge una nuova Activity -->
-        <activity android:name=".ListViewActivity"
-                  android:parentActivityName=".GameActivity">
+        <activity
+            android:name=".ListViewActivity"
+            android:parentActivityName=".GameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
