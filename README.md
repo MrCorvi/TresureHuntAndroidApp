@@ -37,6 +37,12 @@ Presentation  | Related Paper
 
 - - - -
 
+## Prototype
+
+We create a prototype with the intuitive online tool [Proto.io](https://proto.io/). Take a look of the result on this [link](Documentation/Prototype/GPS-Android.pdf) for see our application idea.
+
+- - - -
+
 ## Credits
 
 This project was created by the following University of Pisa students:
