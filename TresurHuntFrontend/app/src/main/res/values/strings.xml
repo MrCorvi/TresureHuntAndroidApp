@@ -1,9 +1,24 @@
 <resources>
     <string name="app_name">My Application</string>
+
     <string name="make_button">Make</string>
     <string name="play_button">Play</string>
-    <string name="continue_button">Continue</string>
 
-    <string name="creator_text">Creator Name</string>
+    <string name="continue_button">Continue</string>
+    <string name="place_button">Place</string>
+    <string name="camera_button">Camera</string>
+    <string name="finish_button">Finish</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="delete_button">Delete</string>
+
+    <string name="game_text">Treasure Hunt Name</string>
+    <string name="game_display">Enter your Game name</string>
+
+    <string name="question_text">What is your question?</string>
+    <string name="answer_text">What is the answer?</string>
+    <string name="question_display">Question</string>
+    <string name="answer_display">Answer</string>
+
+    <string name="recap_text">Treasure Hunt Recap</string>
 
 </resources>
