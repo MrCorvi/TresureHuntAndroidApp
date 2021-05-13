@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,5 +41,11 @@ public class ListViewActivity extends AppCompatActivity {
                 Toast.makeText(ListViewActivity.this, list[position], Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void gameButtonClick(View view){
+        //Allow to switch from the current Activity to the next
+        Intent intent = new Intent(ListViewActivity.this, GameActivity.class);
+        startActivity(intent);
     }
 }

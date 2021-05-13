@@ -7,14 +7,67 @@
     tools:context=".GameActivity">
 
 
-    <Button
-        android:id="@+id/listButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/toolbarmenucontainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="72dp"
-        android:onClick="listStepsClick"
-        android:text="Button"
+        android:gravity="center"
+        android:minHeight="?attr/actionBarSize"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_game_bottom_toolbar"
+            android:clickable="true"
+            android:src="@drawable/ic_location" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_game_bottom_toolbar"
+            android:clickable="true"
+            android:onClick="listStepsClick"
+            android:src="@drawable/ic_list" />
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/checkButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
+        android:src="@drawable/ic_baseline_check_24"
+        app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/questionButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
+        android:src="@drawable/ic_location"
+        app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
+        app:layout_constraintEnd_toStartOf="@+id/hintButton"
+        app:layout_constraintStart_toEndOf="@+id/checkButton" />
+
+    <ImageButton
+        android:id="@+id/hintButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button"
+        android:src="@drawable/ic_location"
+        app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     public void joinButtonClick(View view){
         //text.setText("Join");
         //Allow to switch from the current Activity to the next
-        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        Intent intent = new Intent(MainActivity.this, SearchGameActivity.class);
         startActivity(intent);
     }
 

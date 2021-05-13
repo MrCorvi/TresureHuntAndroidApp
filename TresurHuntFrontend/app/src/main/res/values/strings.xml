@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Tresure Hunt</string>
+    <string name="joinTitle">Join Game</string>
+    <string name="app_label">Tresure Hunt</string>
+    <string name="joinSubmitGameButton">Join Game</string>
 </resources>
