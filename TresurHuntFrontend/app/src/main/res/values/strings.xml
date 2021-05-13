@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">TreasureHunt</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
+    <string name="title_list">List</string>
+    <string name="title_camera">Camera</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
