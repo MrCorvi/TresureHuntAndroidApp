@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.example.demo.models.*;
@@ -19,6 +20,7 @@ import java.util.List;
 public class TreasureBackend {
  
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("jpatest");
+    private int max_id = -1;
 
     @GetMapping("/test")
     public String testing(){
@@ -142,7 +144,18 @@ public class TreasureBackend {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         // Used to issue transactions on the EntityManager
         EntityTransaction et = null;
-    
+        
+        // set gameID
+        if(max_id==-1){
+            Query query = em.createQuery("SELECT MAX(t.gameID) FROM TreasureHuntStep t");
+            max_id = (int) query.getSingleResult();
+        }
+        max_id=max_id+1;
+
+        for(TreasureHuntStep tmp : g.getGame()){
+            tmp.setGameId(max_id);
+        }
+
         try {
             // Get transaction and start
             et = em.getTransaction();

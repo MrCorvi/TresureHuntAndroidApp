@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.Serializable;
 
 public class PlaceFormActivity extends AppCompatActivity {
 
@@ -43,5 +46,14 @@ public class PlaceFormActivity extends AppCompatActivity {
         else{
             Toast.makeText(this, alertMessage , Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+
+        Intent intent = new Intent(PlaceFormActivity.this, MakerMapActivity.class);
+        setResult(Activity.RESULT_CANCELED, intent);
+        finish();
     }
 }

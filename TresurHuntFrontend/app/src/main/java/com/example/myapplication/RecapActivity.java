@@ -1,3 +1,4 @@
+
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,11 +43,10 @@ import java.util.Map;
 
 public class RecapActivity extends AppCompatActivity {
 
-    //private final String url ="http://10.0.2.2:8080/test"; //"localhost" doesn't work. Tested on emulator
-    private final String url ="http://192.168.56.1:8080/games?initName=e";
-    //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2";
-    //private final String url = "https://www.google.com";
-    public static final String TAG = "MyTag";
+    private final String url ="http://X.X.X.X:8080/game"; // insert private IP
+    //private final String url ="http://10.0.2.2:8080/game"; for emulator. "Localhost doesn't work"
+    //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"; // test https
+    //private final String url = "http://echo.jsontest.com/title/ipsum/content/blah"; // test http not-local
     private final String alertMessage = "Min length achieved";
 
     private Game game;
@@ -117,7 +118,7 @@ public class RecapActivity extends AppCompatActivity {
 
     public void onConfirmClick(View view){
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        /*StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -126,24 +127,17 @@ public class RecapActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    System.out.println("VOLLEY ERROR:" + error.getMessage());
+                    System.out.println("VOLLEY ERROR:" + error.toString());
                 }
-        });
-
-        //stringRequest.setTag(TAG);
-        //stringRequest.setShouldCache(false); // By default, volley saves the response in its cache
-                                       // and this behavior may cause some strange problem.
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(500, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        System.out.println("QUEUE ADD");
-        queue.add(stringRequest);
+        });*/
 
         try {
 
             JSONObject jsonBody = new JSONObject();
             for(int i=0; i<game.getSize(); i++){
+
                 JSONObject jsonTmp = new JSONObject();
-                jsonTmp.put("gameId", 5);
-                //jsonTmp.put("creator", game.getGameName());
+                //jsonTmp.put("gameId", -1); //it will be setted in the backend
                 jsonTmp.put("gameName", game.getGameName());
                 jsonTmp.put("step", i+1);
                 jsonTmp.put("question", game.getQuestions().get(i));
@@ -160,7 +154,7 @@ public class RecapActivity extends AppCompatActivity {
 
         System.out.println("REQUEST BODY: " + requestBody);
 
-        /*StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", response);
@@ -197,34 +191,11 @@ public class RecapActivity extends AppCompatActivity {
             }
         };
 
-        /*
-        stringRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 5000;
-            }
-            @Override
-            public int getCurrentRetryCount() {
-                return DefaultRetryPolicy.DEFAULT_MAX_RETRIES;
-            }
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-                System.out.println("VOLLEY ERRORINO");
-            }
-        });*/
-
-        //queue.add(stringRequest);
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
 
         Intent intent = new Intent(RecapActivity.this, MainActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    protected void onStop () {
-        super.onStop();
-        if (queue != null) {
-            queue.cancelAll(TAG);
-        }
     }
 
     @Override

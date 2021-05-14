@@ -16,7 +16,7 @@ public class MakerMapActivity extends AppCompatActivity {
     private int LAUNCH_PLACE = 1;
     private int LAUNCH_CAMERA = 2;
     private int LAUNCH_RECAP = 3;
-    private final int MIN_STEP = 1;
+    private final int MIN_STEP = 2;
     private final String alertMessage = "Add some step";
 
     private Game game;
@@ -30,7 +30,10 @@ public class MakerMapActivity extends AppCompatActivity {
     }
 
     public void placeClick(View view){
-        game.getAnswers().add("Position placeholder");
+        game.getAnswers().add("Position placeholder"); // IMPORTANT : If you press back in PlaceFormActivity
+                                                       // the list will be corrupted. Not solved this issue
+                                                       // because in the final version it will be remove and
+                                                       // position evaluated and sent via intent in PlaceFormActivity
         Intent intent = new Intent( MakerMapActivity.this, PlaceFormActivity.class);
         startActivityForResult(intent, LAUNCH_PLACE);
     }
@@ -93,6 +96,11 @@ public class MakerMapActivity extends AppCompatActivity {
             for(String a: answers){
                 System.out.println(a);
             }*/
+        }
+        else if(resultCode == Activity.RESULT_CANCELED){
+            if(requestCode == LAUNCH_PLACE) {
+                game.getAnswers().remove(game.getAnswers().size()-1);
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {
 
-    private final int MIN_STEP=1;
+    private final int MIN_STEP=2;
     private final String alertMessage = "Min length achieved";
 
     private ArrayList<String> recapList;
