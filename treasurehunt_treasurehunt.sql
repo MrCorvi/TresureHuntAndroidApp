@@ -25,14 +25,14 @@ DROP TABLE IF EXISTS `treasurehunt`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `treasurehunt` (
-  `gameID` int(11) NOT NULL AUTO_INCREMENT,
-  `creator` varchar(45) NOT NULL,
+  `gameID` int(11) NOT NULL,
+  `gameName` varchar(45) NOT NULL,
   `step` int(11) NOT NULL,
   `question` varchar(45) NOT NULL,
   `answer` varchar(45) NOT NULL,
   `stepType` tinyint(1) NOT NULL,
   PRIMARY KEY (`gameID`,`step`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `treasurehunt` (
 
 LOCK TABLES `treasurehunt` WRITE;
 /*!40000 ALTER TABLE `treasurehunt` DISABLE KEYS */;
-INSERT INTO `treasurehunt` VALUES (1,'edo',1,'domanda 1','birra',0),(1,'edo',2,'domanda 2','(118.4,12.3)',1),(1,'edo',3,'domanda 3','fiore',0),(1,'edo',4,'domanda 4','(110.5, 16.8)',1),(2,'fra',1,'domanda uno','farfalla',0),(2,'fra',2,'domanda due','(112.4,18.6)',1),(2,'fra',3,'domanda tre','(124.9, 17.8)',1);
+INSERT INTO `treasurehunt` VALUES (1,'edo',1,'domanda 1','birra',0),(1,'edo',2,'domanda 2','(118.4,12.3)',1),(1,'edo',3,'domanda 3','fiore',0),(1,'edo',4,'domanda 4','(110.5, 16.8)',1),(2,'fra',1,'q1','a1',0),(2,'fra',2,'q2','a2',1),(2,'fra',3,'q3','a3',1),(5,'eddy',1,'d','r',0),(8,'c',1,'q','a',1);
 /*!40000 ALTER TABLE `treasurehunt` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-05 18:29:23
+-- Dump completed on 2021-05-14 14:21:05

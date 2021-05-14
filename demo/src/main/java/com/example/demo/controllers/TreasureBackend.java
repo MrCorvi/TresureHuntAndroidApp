@@ -101,12 +101,15 @@ public class TreasureBackend {
         JSONObject response = new JSONObject();
 
     	// the lowercase c refers to the object
-    	String query = "SELECT t FROM TreasureHuntStep t WHERE creator like :initName";
+    	//String query = "SELECT t FROM TreasureHuntStep t WHERE treasureHuntName like :initName";
+        String query = "SELECT new com.example.demo.models.customObject(t.gameName, COUNT(t.step)) FROM TreasureHuntStep t WHERE gameName like :initName GROUP BY t.gameName";
 
     	// create a query using someJPQL, and this query will return instances of the TreasureHunt entity.
-    	TypedQuery<TreasureHuntStep> tq = em.createQuery(query, TreasureHuntStep.class).setParameter("initName", "%" + initName + "%"); 
+    	//TypedQuery<TreasureHuntStep> tq = em.createQuery(query, TreasureHuntStep.class).setParameter("initName", "%" + initName + "%"); 
+        TypedQuery<customObject> tq = em.createQuery(query, customObject.class).setParameter("initName", "%" + initName + "%"); 
 
-    	List<TreasureHuntStep> th=null;
+    	//List<TreasureHuntStep> th=null;
+        List<customObject> th=null;
     	try {
     		th = tq.getResultList();
     		System.out.println(th.toString());
@@ -126,7 +129,7 @@ public class TreasureBackend {
             ja.add(th.get(i).toJSON());
         }
         //returnMessage += "]}";
-        response.put("game",ja);
+        response.put("games",ja);
 
         return response;
         ////return returnMessage;
