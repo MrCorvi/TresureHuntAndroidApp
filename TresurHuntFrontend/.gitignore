@@ -15,3 +15,6 @@
 /captures
 .externalNativeBuild
 /gradle
+/.idea/caches
+/.idea/libraries
+.gradle

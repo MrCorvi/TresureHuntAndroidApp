@@ -15,12 +15,19 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SearchGameActivity extends AppCompatActivity {
 
     private ListView listView;
+    private RequestQueue queue;
+    private String backendRoot = "http://192.168.1.4:8080";
     private String [] list = {
             "Casa",
             "Di",
@@ -42,12 +49,38 @@ public class SearchGameActivity extends AppCompatActivity {
             System.out.println(query);
 
             // Instantiate the RequestQueue.
-            RequestQueue queue = Volley.newRequestQueue(this);
+            queue = Volley.newRequestQueue(this);
 
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(
+            JsonObjectRequest stringRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
+                    null,
+                    new Response.Listener<JSONObject>() { //Called on successful response
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray jsonArrey = response.getJSONArray("game");
+                                for(int i=0; i < jsonArrey.length(); i++){
+                                    JSONObject game = jsonArrey.getJSONObject(i);
+                                    String gameName = game.getString("creator");
+                                    System.out.println(gameName);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() { //Called on error response
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("That didn't work!");
+                            System.out.println(error.toString());
+                        }
+                    });
+            /*StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
-                "https://postman-echo.com/get?foo1=bar1&foo2=bar2",
+                backendRoot+"/game?gameId=1",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -61,7 +94,7 @@ public class SearchGameActivity extends AppCompatActivity {
                         System.out.println(error.toString());
                     }
                 }
-            );
+            );*/
 
             // Add the request to the RequestQueue.
             queue.add(stringRequest);
