@@ -18,8 +18,8 @@ public class TreasureHuntStep implements Serializable {
     @Id
     @Column(name = "step", nullable=false)
     protected Integer step;
-    @Column(name = "creator", nullable = false)
-    private String creator;
+    @Column(name = "gameName", nullable = false)
+    private String gameName;
     @Column(name = "question", nullable = false)
     private String question;
     @Column(name = "answer", nullable = false)
@@ -29,32 +29,32 @@ public class TreasureHuntStep implements Serializable {
 
     public TreasureHuntStep(){}
 
-    public TreasureHuntStep(Integer gameID, Integer step, String creator, String question, String answer, Boolean stepType){
+    public TreasureHuntStep(Integer gameID, Integer step, String gameName, String question, String answer, Boolean stepType){
         
         this.gameID = gameID;
         this.step = step;
-        this.creator=creator;
+        this.gameName=gameName;
         this.question=question;
         this.answer=answer;
         this.stepType = stepType;
     }
 
-    public TreasureHuntStep(String creator, String question, String answer, Boolean stepType){
+    public TreasureHuntStep(String gameName, String question, String answer, Boolean stepType){
 
-        this.creator=creator;
+        this.gameName=gameName;
         this.question=question;
         this.answer=answer;
         this.stepType = stepType;
     }
 
-    public String getCreator(){return creator;}
+    public String getgameName(){return gameName;}
     public String getQuestion(){return question;}
     public String getAnswer(){return answer;}
     public Boolean getStepType(){return stepType;}
     public Integer getGameId(){return gameID;}
     public Integer getStep(){return step;}
     
-    public void setCreator(String creator){this.creator= creator;}
+    public void setgameName(String gameName){this.gameName= gameName;}
     public void setQuestion(String question){this.question=question;}
     public void setAnswer(String answer){this.answer=answer;}
     public void setStepType(Boolean stepType){this.stepType=stepType;}
@@ -63,7 +63,7 @@ public class TreasureHuntStep implements Serializable {
 
     @Override
     public String toString() {
-        return "{ 'gameId': "+ gameID  +",\n 'creator': " + creator + ",\n 'question': " 
+        return "{ 'gameId': "+ gameID  +",\n 'gameName': " + gameName + ",\n 'question': " 
         + question + ",\n 'Answer': " + answer + ",\n 'step': " + step + ",\n 'stepType': " + stepType + " }\n";
     }
 
@@ -71,7 +71,7 @@ public class TreasureHuntStep implements Serializable {
 
         JSONObject jo = new JSONObject();
         jo.put("gameId", gameID);
-        jo.put("creator", creator);
+        jo.put("gameName", gameName);
         jo.put("question", question);
         jo.put("answer", answer);
         jo.put("step", step);
