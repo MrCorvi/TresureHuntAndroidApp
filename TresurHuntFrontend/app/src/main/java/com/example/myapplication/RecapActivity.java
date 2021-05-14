@@ -41,7 +41,10 @@ import java.util.Map;
 
 public class RecapActivity extends AppCompatActivity {
 
-    private final String url ="http://10.0.2.2:8080/test"; //"localhost" doesn't work. Tested on emulator
+    //private final String url ="http://10.0.2.2:8080/test"; //"localhost" doesn't work. Tested on emulator
+    private final String url ="http://192.168.56.1:8080/games?initName=e";
+    //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2";
+    //private final String url = "https://www.google.com";
     public static final String TAG = "MyTag";
     private final String alertMessage = "Min length achieved";
 
@@ -114,11 +117,11 @@ public class RecapActivity extends AppCompatActivity {
 
     public void onConfirmClick(View view){
 
-        /*StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        System.out.println(response);
+                        System.out.println("RESPONSE: " + response);
                     }
                 }, new Response.ErrorListener() {
                 @Override
@@ -128,7 +131,11 @@ public class RecapActivity extends AppCompatActivity {
         });
 
         //stringRequest.setTag(TAG);
-        queue.add(stringRequest);*/
+        //stringRequest.setShouldCache(false); // By default, volley saves the response in its cache
+                                       // and this behavior may cause some strange problem.
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(500, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        System.out.println("QUEUE ADD");
+        queue.add(stringRequest);
 
         try {
 
@@ -136,7 +143,8 @@ public class RecapActivity extends AppCompatActivity {
             for(int i=0; i<game.getSize(); i++){
                 JSONObject jsonTmp = new JSONObject();
                 jsonTmp.put("gameId", 5);
-                jsonTmp.put("creator", game.getGameName());
+                //jsonTmp.put("creator", game.getGameName());
+                jsonTmp.put("gameName", game.getGameName());
                 jsonTmp.put("step", i+1);
                 jsonTmp.put("question", game.getQuestions().get(i));
                 jsonTmp.put("answer", game.getAnswers().get(i));
@@ -150,7 +158,7 @@ public class RecapActivity extends AppCompatActivity {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(requestBody);
+        System.out.println("REQUEST BODY: " + requestBody);
 
         /*StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
