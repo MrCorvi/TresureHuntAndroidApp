@@ -11,6 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 public class SearchGameActivity extends AppCompatActivity {
 
     private ListView listView;
@@ -33,6 +40,31 @@ public class SearchGameActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             System.out.println(query);
+
+            // Instantiate the RequestQueue.
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(
+                Request.Method.GET,
+                "https://postman-echo.com/get?foo1=bar1&foo2=bar2",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("That didn't work!");
+                        System.out.println(error.toString());
+                    }
+                }
+            );
+
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
         }
 
         //here we create the list view object, select a list style and assign the array of object we want to display
