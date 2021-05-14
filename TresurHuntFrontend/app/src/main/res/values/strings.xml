@@ -3,4 +3,9 @@
     <string name="joinTitle">Join Game</string>
     <string name="app_label">Tresure Hunt</string>
     <string name="joinSubmitGameButton">Join Game</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
+    <string name="title_list">List</string>
+    <string name="title_camera">Camera</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

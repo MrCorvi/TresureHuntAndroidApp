@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import java.io.Serializable;
+import org.json.simple.JSONObject; 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +39,14 @@ public class TreasureHuntStep implements Serializable {
         this.stepType = stepType;
     }
 
+    public TreasureHuntStep(String creator, String question, String answer, Boolean stepType){
+
+        this.creator=creator;
+        this.question=question;
+        this.answer=answer;
+        this.stepType = stepType;
+    }
+
     public String getCreator(){return creator;}
     public String getQuestion(){return question;}
     public String getAnswer(){return answer;}
@@ -54,8 +63,21 @@ public class TreasureHuntStep implements Serializable {
 
     @Override
     public String toString() {
-        return "\nTreasureHunt{ GameId: "+ gameID  +"\n Creator: " + creator + "\n Question: " 
-        + question + "\n Answer: " + answer + "\n step: " + step + "\n stepType: " + stepType + " }\n";
+        return "{ 'gameId': "+ gameID  +",\n 'creator': " + creator + ",\n 'question': " 
+        + question + ",\n 'Answer': " + answer + ",\n 'step': " + step + ",\n 'stepType': " + stepType + " }\n";
+    }
+
+    public JSONObject toJSON() {
+
+        JSONObject jo = new JSONObject();
+        jo.put("gameId", gameID);
+        jo.put("creator", creator);
+        jo.put("question", question);
+        jo.put("answer", answer);
+        jo.put("step", step);
+        jo.put("stepType", stepType);
+
+        return jo;
     }
 
 }

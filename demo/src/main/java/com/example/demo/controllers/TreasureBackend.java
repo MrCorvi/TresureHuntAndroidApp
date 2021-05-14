@@ -11,6 +11,8 @@ import javax.persistence.TypedQuery;
 
 import com.example.demo.models.*;
 
+import org.json.simple.*;
+
 import java.util.List;
 
 @RestController
@@ -51,13 +53,15 @@ public class TreasureBackend {
     }
 
     @GetMapping("/game")
-    public String getTreasureHunt(@RequestParam int gameId){
+    //public String getTreasureHunt(@RequestParam int gameId){
+    public JSONObject getTreasureHunt(@RequestParam int gameId){
 
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        JSONObject response = new JSONObject();
         String returnMessage = "";
 
     	// the lowercase c refers to the object
-    	// :custID is a parameterized query thats value is set below
+    	// :gameId is a parameterized query thats value is set below
     	String query = "SELECT t FROM TreasureHuntStep t WHERE gameID= :gameId";
     	
     	// create a query using someJPQL, and this query will return instances of the TreasureHunt entity.
@@ -75,10 +79,57 @@ public class TreasureBackend {
     		em.close();
     	}
         
-        for(int i=0; i<th.size(); i++)
-            returnMessage += th.get(i).toString();
+        JSONArray ja = new JSONArray();
+        for(int i=0; i<th.size(); i++){
+            //returnMessage += th.get(i).toString();
+            //if(i<th.size()-1)
+            //    returnMessage += "";
+            ja.add(th.get(i).toJSON());
+        }
+        //returnMessage += "";
+        response.put("game",ja);
+        //return returnMessage;
+        return response;
+    }
 
-        return returnMessage;
+    @GetMapping("/games")
+    //public String getTreasureHunt(@RequestParam String initName){
+    public JSONObject getTreasureHunt(@RequestParam String initName){
+
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String returnMessage = "";
+        JSONObject response = new JSONObject();
+
+    	// the lowercase c refers to the object
+    	String query = "SELECT t FROM TreasureHuntStep t WHERE creator like :initName";
+
+    	// create a query using someJPQL, and this query will return instances of the TreasureHunt entity.
+    	TypedQuery<TreasureHuntStep> tq = em.createQuery(query, TreasureHuntStep.class).setParameter("initName", "%" + initName + "%"); 
+
+    	List<TreasureHuntStep> th=null;
+    	try {
+    		th = tq.getResultList();
+    		System.out.println(th.toString());
+    	}
+    	catch(NoResultException ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		em.close();
+    	}
+        
+        JSONArray ja = new JSONArray();
+        for(int i=0; i<th.size(); i++){
+            //returnMessage += th.get(i).toString();
+            //if(i<th.size()-1)
+            //    returnMessage += ",";
+            ja.add(th.get(i).toJSON());
+        }
+        //returnMessage += "]}";
+        response.put("game",ja);
+
+        return response;
+        ////return returnMessage;
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/game")
@@ -149,7 +200,7 @@ public class TreasureBackend {
                 System.out.println(ths.toString());
                 em.persist(ths);
             } 
-            et.commit();
+            et.commit(); //commit a transaction only once
         }catch (Exception ex) {
             if (et != null) {
                 et.rollback();
