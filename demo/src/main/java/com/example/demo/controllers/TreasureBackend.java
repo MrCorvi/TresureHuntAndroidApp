@@ -35,7 +35,8 @@ public class TreasureBackend {
             et = em.getTransaction();
             et.begin();
     
-            TreasureHuntStep p = new TreasureHuntStep(Integer.valueOf(100), Integer.valueOf(1), "giammi", "q","a",Boolean.valueOf(true));
+            TreasureHuntStep p = new TreasureHuntStep(Integer.valueOf(1), "giammi", "q","a",Boolean.valueOf(true));
+            p.setGameId(Integer.valueOf(100));
             //Prova p = new Prova("zz","y",Integer.valueOf(80));
 
             // Save the treasure hunt object
@@ -104,7 +105,7 @@ public class TreasureBackend {
 
     	// the lowercase c refers to the object
     	//String query = "SELECT t FROM TreasureHuntStep t WHERE treasureHuntName like :initName";
-        String query = "SELECT new com.example.demo.models.customObject(t.gameName, COUNT(t.step)) FROM TreasureHuntStep t WHERE gameName like :initName GROUP BY t.gameName";
+        String query = "SELECT new com.example.demo.models.customObject(t.gameID, t.gameName, COUNT(t.step)) FROM TreasureHuntStep t WHERE gameName like :initName GROUP BY t.gameName";
 
     	// create a query using someJPQL, and this query will return instances of the TreasureHunt entity.
     	//TypedQuery<TreasureHuntStep> tq = em.createQuery(query, TreasureHuntStep.class).setParameter("initName", "%" + initName + "%"); 
@@ -138,8 +139,10 @@ public class TreasureBackend {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/game")
-    public String createTreasureHunt(@RequestBody TreasureHunt g){
+    public JSONObject createTreasureHunt(@RequestBody TreasureHunt g){
+
         String returnMessage="";
+        JSONObject response = new JSONObject();
         // The EntityManager class allows operations such as create, read, update, delete
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         // Used to issue transactions on the EntityManager
@@ -177,7 +180,8 @@ public class TreasureBackend {
             // Close EntityManager
             em.close();
         }
-        return returnMessage;
+        response.put("gameId",max_id);
+        return response;
     }
 
     @RequestMapping(method=RequestMethod.DELETE, value="/step")

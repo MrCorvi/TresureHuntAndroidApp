@@ -31,7 +31,7 @@ public class TreasureHuntStep implements Serializable {
 
     public TreasureHuntStep(Integer step, String gameName, String question, String answer, Boolean stepType){
         
-        //this.gameID = -1;
+        this.gameID = -1;
         this.step = step;
         this.gameName=gameName;
         this.question=question;
@@ -39,7 +39,7 @@ public class TreasureHuntStep implements Serializable {
         this.stepType = stepType;
     }
 
-    public TreasureHuntStep(Integer gameID, Integer step, String gameName, String question, String answer, Boolean stepType){
+    /*public TreasureHuntStep(Integer gameID, Integer step, String gameName, String question, String answer, Boolean stepType){
         
         this.gameID = gameID;
         this.step = step;
@@ -47,7 +47,7 @@ public class TreasureHuntStep implements Serializable {
         this.question=question;
         this.answer=answer;
         this.stepType = stepType;
-    }
+    }*/
 
     public TreasureHuntStep(String gameName, String question, String answer, Boolean stepType){
 
