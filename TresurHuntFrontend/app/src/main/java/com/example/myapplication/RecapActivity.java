@@ -26,6 +26,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -43,7 +44,7 @@ import java.util.Map;
 
 public class RecapActivity extends AppCompatActivity {
 
-    private final String url ="http://X.X.X.X:8080/game"; // insert private IP
+    private final String url ="http://192.168.1.79:8080/game"; // insert private IP
     //private final String url ="http://10.0.2.2:8080/game"; for emulator. "Localhost doesn't work"
     //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"; // test https
     //private final String url = "http://echo.jsontest.com/title/ipsum/content/blah"; // test http not-local
@@ -131,9 +132,9 @@ public class RecapActivity extends AppCompatActivity {
                 }
         });*/
 
+        JSONObject jsonBody = new JSONObject();
         try {
 
-            JSONObject jsonBody = new JSONObject();
             for(int i=0; i<game.getSize(); i++){
 
                 JSONObject jsonTmp = new JSONObject();
@@ -154,7 +155,32 @@ public class RecapActivity extends AppCompatActivity {
 
         System.out.println("REQUEST BODY: " + requestBody);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        JsonObjectRequest stringRequest = new JsonObjectRequest(
+                Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() { //Called on successful response
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            System.out.println(response);
+                            int gameId = response.getInt("gameId");
+
+                            Intent intent = new Intent(RecapActivity.this, SuccessCreationActivity.class);
+                            intent.putExtra("gameId",gameId);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { //Called on error response
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("That didn't work!");
+                        System.out.println(error.toString());
+                    }
+                });
+
+        /*StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", response);
@@ -189,13 +215,10 @@ public class RecapActivity extends AppCompatActivity {
                 }
                 return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
             }
-        };
+        };*/
 
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
-        Intent intent = new Intent(RecapActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 
     @Override

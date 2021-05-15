@@ -19,6 +19,9 @@
     <string name="question_display">Question</string>
     <string name="answer_display">Answer</string>
 
+    <string name="success_title">Treasure Hunt created! </string>
+    <string name="success_description">Congratulations! This is your GameId. It will be necessary to play. SAVE IT to do not forget it! </string>
+
     <string name="recap_text">Treasure Hunt Recap</string>
 
 </resources>
