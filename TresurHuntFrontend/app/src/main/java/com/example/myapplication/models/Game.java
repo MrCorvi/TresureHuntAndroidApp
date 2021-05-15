@@ -1,9 +1,9 @@
 package com.example.myapplication.models;
 
 public class Game {
-    private int id;
-    private String name;
-    private int steps;
+    public int id;
+    public String name;
+    public int steps;
 
     public  Game(){
         id = 0;

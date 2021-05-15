@@ -39,7 +39,9 @@ public class SearchGameActivity extends AppCompatActivity {
 
     //list of games with all their proprieties
     private List<Game> gameList;
-    private int gameSelected = 0;
+    //Is the index of the current selected gama in gameList
+    //Set to -1, to mean that no  game was selected
+    private int gameSelected = -1;
 
 
     @Override
@@ -48,9 +50,6 @@ public class SearchGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_game);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Set to -1, to mean that no  game was selected
-        gameSelected = -1;
 
 
         // This is for when the activity is reloaded with the quarry searched in the bar
@@ -101,18 +100,19 @@ public class SearchGameActivity extends AppCompatActivity {
 
                             for(int i=0; i < jsonArrey.length(); i++){
                                 JSONObject game = jsonArrey.getJSONObject(i);
+                                Integer gameId = game.getInt("gameId");
                                 String gameName = game.getString("gameName");
-                                String steps = game.getString("numSteps");
+                                Integer steps = game.getInt("numSteps");
 
                                 //add new element to the list view
-                                games.add(gameName+" ("+steps+" steps)");
+                                games.add(gameName+" ("+steps+" steps): "+gameId);
 
                                 //add game to internal game list
                                 gameList.add(new Game(
-                                        1,
-                                        gameName,
-                                        Integer.parseInt(steps))
-                                );
+                                    gameId,
+                                    gameName,
+                                    steps
+                                ));
                             }
 
                             arrayAdapter.notifyDataSetChanged();
@@ -149,15 +149,16 @@ public class SearchGameActivity extends AppCompatActivity {
 
         System.out.println(gameSelected);
 
-        if(gameSelected == -1){
+        if(gameSelected <= -1){
             Snackbar mySnackbar = Snackbar.make(view, R.string.noGameSelected, Snackbar.LENGTH_SHORT);
             mySnackbar.show();
             return;
         }
 
-
         //Allow to switch from the current Activity to the next
-        //Intent intent = new Intent(SearchGameActivity.this, GameActivity.class);
-        //startActivity(intent);
+        Intent intent = new Intent(SearchGameActivity.this, GameActivity.class);
+        Game game = gameList.get(gameSelected);
+        intent.putExtra("gameId", game.id);
+        startActivity(intent);
     }
 }

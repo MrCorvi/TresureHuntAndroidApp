@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/game_toolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,20 +8,22 @@
     android:layout_gravity="center"
     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
+        android:id="@+id/pos_step_counter_label"
         android:gravity="center"
         android:text="11111"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableLeft="@drawable/ic_flag"
-        android:paddingHorizontal="50dp"/>
+        android:paddingHorizontal="50dp"
+        app:drawableStartCompat="@drawable/ic_flag" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
+        android:id="@+id/image_step_counter_label"
         android:gravity="center"
         android:text="2222"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:drawableLeft="@drawable/ic_camera"/>
+        app:drawableStartCompat="@drawable/ic_camera" />
 </LinearLayout>

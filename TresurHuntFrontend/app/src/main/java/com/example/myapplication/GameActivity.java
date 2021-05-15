@@ -4,12 +4,37 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.myapplication.models.Game;
+import com.example.myapplication.models.Step;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
+
+    private String backendRoot = "http://192.168.1.4:8080";
+
+    private int gameId;
+    private List<Step> stepList;
+    private int currentStep = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +43,78 @@ public class GameActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
+
+        //get the id of the selected game
+        Intent intent = getIntent();
+        gameId = intent.getIntExtra("gameId", 1);
+
+        stepList = new ArrayList<Step>();
+
+        //Request the steps of the selected game
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                backendRoot + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
+                null,
+                new Response.Listener<JSONObject>() { //Called on successful response
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Request arrived !!!!!!");
+                        try {
+                            JSONArray jsonArrey = response.getJSONArray("game");
+
+                            Integer nImages = 0;
+                            Integer nPos = 0;
+
+                            //we add all the steps recived to the stepList
+                            for(int i=0; i < jsonArrey.length(); i++){
+                                JSONObject step = jsonArrey.getJSONObject(i);
+                                Integer id = step.getInt("step");
+                                Boolean isPositionQuestion = step.getBoolean("stepType");
+                                String question = step.getString("question");
+                                String answer = step.getString("answer");
+
+
+                                System.out.println(id);
+
+                                //add game to internal step list
+                                stepList.add(new Step(
+                                        id,
+                                        isPositionQuestion,
+                                        question,
+                                        answer
+                                ));
+
+                                if(isPositionQuestion)
+                                    nPos++;
+                                else
+                                    nImages++;
+                            }
+
+                            //Set the labels of the top-bar
+                            TextView posLabel = (TextView) findViewById(R.id.pos_step_counter_label);
+                            posLabel.setText("0/"+nPos.toString());
+                            TextView imgLabel = (TextView) findViewById(R.id.image_step_counter_label);
+                            imgLabel.setText("0/"+nImages.toString());
+
+                            System.out.println(nImages);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { //Called on error response
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        System.out.println("The game request was unsuccessful!");
+                        System.out.println(error.toString());
+                    }
+                }
+        );
+
+        // Add the request to the RequestQueue.
+        queue.add(request);
     }
 
     public void setActionBar(String heading) {
