@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -16,24 +17,30 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.myapplication.models.Game;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SearchGameActivity extends AppCompatActivity {
 
     private ListView listView;
     private RequestQueue queue;
     private String backendRoot = "http://192.168.1.4:8080";
-    private String [] list = {
-            "Casa",
-            "Di",
-            "Tua",
-            "Madre"
-    };
+    private String [] list ;
+
+
+    //list of games with all their proprieties
+    private List<Game> gameList;
+    private int gameSelected = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,10 @@ public class SearchGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_game);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Set to -1, to mean that no  game was selected
+        gameSelected = -1;
+
 
         // This is for when the activity is reloaded with the quarry searched in the bar
         Intent intent = getIntent();
@@ -50,60 +61,79 @@ public class SearchGameActivity extends AppCompatActivity {
 
             // Instantiate the RequestQueue.
             queue = Volley.newRequestQueue(this);
+            listView = findViewById(R.id.listview);
+
+
+            list = new String[]{
+                    "A",
+                    "B",
+                    "C"
+            };
+            final List<String> games = new ArrayList<String>(Arrays.asList(list));
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
+            listView.setAdapter(arrayAdapter);
+
+            //handlers for the click of the items in the list
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    gameSelected = position;
+                }
+            });
+
+            //Reset the list game
+            gameList = new ArrayList<Game>();
 
             // Request a string response from the provided URL.
             JsonObjectRequest stringRequest = new JsonObjectRequest(
-                    Request.Method.GET,
-                    backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
-                    null,
-                    new Response.Listener<JSONObject>() { //Called on successful response
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                JSONArray jsonArrey = response.getJSONArray("game");
-                                for(int i=0; i < jsonArrey.length(); i++){
-                                    JSONObject game = jsonArrey.getJSONObject(i);
-                                    String gameName = game.getString("creator");
-                                    System.out.println(gameName);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    },
-                    new Response.ErrorListener() { //Called on error response
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            System.out.println("That didn't work!");
-                            System.out.println(error.toString());
-                        }
-                    });
-            /*StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
-                backendRoot+"/game?gameId=1",
-                new Response.Listener<String>() {
+                backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
+                null,
+                new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
-                    public void onResponse(String response) {
-                        System.out.println(response);
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArrey = response.getJSONArray("games");
+
+                            //reset list
+                            games.removeAll(games);
+                            gameList.removeAll(gameList);
+
+                            for(int i=0; i < jsonArrey.length(); i++){
+                                JSONObject game = jsonArrey.getJSONObject(i);
+                                String gameName = game.getString("gameName");
+                                String steps = game.getString("numSteps");
+
+                                //add new element to the list view
+                                games.add(gameName+" ("+steps+" steps)");
+
+                                //add game to internal game list
+                                gameList.add(new Game(
+                                        1,
+                                        gameName,
+                                        Integer.parseInt(steps))
+                                );
+                            }
+
+                            arrayAdapter.notifyDataSetChanged();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
-                new Response.ErrorListener() {
+                new Response.ErrorListener() { //Called on error response
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println("That didn't work!");
                         System.out.println(error.toString());
                     }
                 }
-            );*/
+            );
 
             // Add the request to the RequestQueue.
             queue.add(stringRequest);
         }
-
-        //here we create the list view object, select a list style and assign the array of object we want to display
-        listView = findViewById(R.id.listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        listView.setAdapter(arrayAdapter);
 
 
         // Get the SearchView and set the searchable configuration
@@ -116,9 +146,18 @@ public class SearchGameActivity extends AppCompatActivity {
     }
 
     public void joinSubmitButtonClick(View view){
-        //text.setText("Join");
+
+        System.out.println(gameSelected);
+
+        if(gameSelected == -1){
+            Snackbar mySnackbar = Snackbar.make(view, R.string.noGameSelected, Snackbar.LENGTH_SHORT);
+            mySnackbar.show();
+            return;
+        }
+
+
         //Allow to switch from the current Activity to the next
-        Intent intent = new Intent(SearchGameActivity.this, GameActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(SearchGameActivity.this, GameActivity.class);
+        //startActivity(intent);
     }
 }
