@@ -29,6 +29,16 @@ public class TreasureHuntStep implements Serializable {
 
     public TreasureHuntStep(){}
 
+    public TreasureHuntStep(Integer step, String gameName, String question, String answer, Boolean stepType){
+        
+        //this.gameID = -1;
+        this.step = step;
+        this.gameName=gameName;
+        this.question=question;
+        this.answer=answer;
+        this.stepType = stepType;
+    }
+
     public TreasureHuntStep(Integer gameID, Integer step, String gameName, String question, String answer, Boolean stepType){
         
         this.gameID = gameID;
