@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.adapters.GameStepAdapter;
 import com.example.myapplication.models.Step;
 
 import java.util.ArrayList;
@@ -47,10 +48,12 @@ public class ListViewActivity extends AppCompatActivity {
 
         //here we create the list view object, select a list style and assign the array of object we want to display
         listView = findViewById(R.id.listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
+        GameStepAdapter arrayAdapter = new GameStepAdapter(this, stepList);
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
         listView.setAdapter(arrayAdapter);
 
         //here we handle the click of an element of the list
+        /*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,6 +61,7 @@ public class ListViewActivity extends AppCompatActivity {
                 Toast.makeText(ListViewActivity.this, list[position], Toast.LENGTH_SHORT).show();
             }
         });
+        */
     }
 
     public void gameButtonClick(View view){
