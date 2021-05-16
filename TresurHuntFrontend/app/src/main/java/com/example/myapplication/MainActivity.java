@@ -33,7 +33,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeButtonClick(View view){
-        text.setText("Make");
+        //text.setText("Make");
+
+        Intent intent = new Intent(MainActivity.this, FormMakerActivity.class);
+        startActivity(intent);
     }
 
 }

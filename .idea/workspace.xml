@@ -8,71 +8,28 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="14e0415e-c43b-4ea7-80a7-447947b2a3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/java/com/example/myapplication/GameActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/java/com/example/myapplication/ListViewActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/java/com/example/myapplication/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/layout/activity_game.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/layout/activity_listview.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/main/res/values/styles.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/app/src/test/java/com/example/myapplication/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/TresurHuntFrontend/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/app/app.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/androidTest/java/com/example/myapplication/ExampleInstrumentedTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/GameActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/GameActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/ListViewActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/ListViewActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/java/com/example/myapplication/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_game.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_game.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_listview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_listview.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TresurHuntFrontend/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/TresurHuntFrontend/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,9 +53,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="device.picker.selection" value="LCL0218514000247" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/TresureHuntAndroidApp" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
   </component>
   <component name="RunManager">
@@ -115,7 +73,6 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
-      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -178,10 +135,30 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
-    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1620663937827">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="669" y="194" key="#app" timestamp="1620665010889">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="669" y="194" key="#app/0.0.1920.1040@0.0.1920.1040" timestamp="1620665010889" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1620664957850">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1620664957850" />
+    <state x="632" y="147" key="FileChooserDialogImpl" timestamp="1620665155694">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680/-2040.467.1360.728@0.0.1280.680" timestamp="1620663937827" />
+    <state x="632" y="147" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1620665155694" />
   </component>
 </project>
