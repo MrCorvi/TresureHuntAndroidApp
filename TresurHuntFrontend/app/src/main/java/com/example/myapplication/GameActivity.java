@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -117,21 +118,11 @@ public class GameActivity extends AppCompatActivity {
         queue.add(request);
     }
 
-    public void setActionBar(String heading) {
-        // TODO Auto-generated method stub
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setTitle(heading);
-        actionBar.show();
-
-    }
-
     public void listStepsClick(View view){
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(GameActivity.this, ListViewActivity.class);
+        //intent.putExtra("gameId", game.id);
+        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepList);
         startActivity(intent);
     }
 }

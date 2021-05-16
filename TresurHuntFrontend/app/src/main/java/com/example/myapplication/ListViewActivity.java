@@ -11,9 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.models.Step;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListViewActivity extends AppCompatActivity {
 
     private ListView listView;
+    private List<Step> stepList;
     private String [] list = {
             "A",
             "B",
@@ -28,9 +34,20 @@ public class ListViewActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        stepList = intent.getParcelableArrayListExtra("steps");
+        System.out.println(stepList.get(0).question);
+
+        //Create the strings of labels of the list
+        List<String> labelList = new ArrayList<String>();
+        for(int i=0; i < stepList.size(); i++){
+            String question = stepList.get(i).question;
+            labelList.add(question);
+        }
+
         //here we create the list view object, select a list style and assign the array of object we want to display
         listView = findViewById(R.id.listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, labelList);
         listView.setAdapter(arrayAdapter);
 
         //here we handle the click of an element of the list
