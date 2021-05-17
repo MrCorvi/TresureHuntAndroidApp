@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,97 +54,113 @@ public class SearchGameActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        // This is for when the activity is reloaded with the quarry searched in the bar
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            System.out.println(query);
-
-            // Instantiate the RequestQueue.
-            queue = Volley.newRequestQueue(this);
-            listView = findViewById(R.id.listview);
-
-
-            list = new String[]{
-                    "A",
-                    "B",
-                    "C"
-            };
-            final List<String> games = new ArrayList<String>(Arrays.asList(list));
-            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, games);
-            listView.setAdapter(arrayAdapter);
-
-            //handlers for the click of the items in the list
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    gameSelected = position;
-                }
-            });
-
-            //Reset the list game
-            gameList = new ArrayList<Game>();
-
-            // Request a string response from the provided URL.
-            JsonObjectRequest stringRequest = new JsonObjectRequest(
-                Request.Method.GET,
-                backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
-                null,
-                new Response.Listener<JSONObject>() { //Called on successful response
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArrey = response.getJSONArray("games");
-
-                            //reset list
-                            games.removeAll(games);
-                            gameList.removeAll(gameList);
-
-                            for(int i=0; i < jsonArrey.length(); i++){
-                                JSONObject game = jsonArrey.getJSONObject(i);
-                                Integer gameId = game.getInt("gameId");
-                                String gameName = game.getString("gameName");
-                                Integer steps = game.getInt("numSteps");
-
-                                //add new element to the list view
-                                games.add(gameName+" ("+steps+" steps): "+gameId);
-
-                                //add game to internal game list
-                                gameList.add(new Game(
-                                    gameId,
-                                    gameName,
-                                    steps
-                                ));
-                            }
-
-                            arrayAdapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() { //Called on error response
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        System.out.println("That didn't work!");
-                        System.out.println(error.toString());
-                    }
-                }
-            );
-
-            // Add the request to the RequestQueue.
-            queue.add(stringRequest);
-        }
-
-
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) findViewById(R.id.searchView);
         // Assumes current activity is the searchable activity
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                // This is for when the activity is reloaded with the quarry searched in the bar
+                Intent intent = getIntent();
+                // Instantiate the RequestQueue.
+                queue = Volley.newRequestQueue(SearchGameActivity.this);
+                listView = findViewById(R.id.listview);
+
+
+                list = new String[]{};
+                final List<String> games = new ArrayList<String>(Arrays.asList(list));
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(SearchGameActivity.this, android.R.layout.simple_list_item_1, games);
+                listView.setAdapter(arrayAdapter);
+
+                //handlers for the click of the items in the list
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        gameSelected = position;
+                    }
+                });
+
+                //Reset the list game
+                gameList = new ArrayList<Game>();
+
+                // Request a string response from the provided URL.
+                JsonObjectRequest stringRequest = new JsonObjectRequest(
+                        Request.Method.GET,
+                        backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
+                        null,
+                        new Response.Listener<JSONObject>() { //Called on successful response
+                            @SuppressLint("ResourceAsColor")
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    JSONArray jsonArrey = response.getJSONArray("games");
+
+                                    //reset list
+                                    games.removeAll(games);
+                                    gameList.removeAll(gameList);
+
+                                    for(int i=0; i < jsonArrey.length(); i++){
+                                        JSONObject game = jsonArrey.getJSONObject(i);
+                                        Integer gameId = game.getInt("gameId");
+                                        String gameName = game.getString("gameName");
+                                        Integer steps = game.getInt("numSteps");
+
+                                        //add new element to the list view
+                                        games.add(gameName+" ("+steps+" steps): "+gameId);
+
+                                        //add game to internal game list
+                                        gameList.add(new Game(
+                                                gameId,
+                                                gameName,
+                                                steps
+                                        ));
+                                    }
+
+                                    arrayAdapter.notifyDataSetChanged();
+
+                                    //enable button if we have more then one result
+                                    Button joinButton = (Button) findViewById(R.id.joinSubmitGameButton);
+                                    if(gameList.size() > 0) {
+                                        joinButton.setEnabled(true);
+                                        joinButton.setTextColor(R.color.common_google_signin_btn_text_dark);
+                                        joinButton.setBackgroundColor(R.color.colorPrimary);
+                                    }else{
+                                        joinButton.setEnabled(false);
+                                        joinButton.setTextColor(R.color.common_google_signin_btn_text_dark_disabled);
+                                        joinButton.setBackgroundColor(R.color.colorPrimaryDark);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { //Called on error response
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("That didn't work!");
+                                System.out.println(error.toString());
+                            }
+                        }
+                );
+
+                // Add the request to the RequestQueue.
+                queue.add(stringRequest);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+
 
     }
 
