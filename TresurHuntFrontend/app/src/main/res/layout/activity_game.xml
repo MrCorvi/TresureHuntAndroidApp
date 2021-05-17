@@ -45,6 +45,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button"
         android:src="@drawable/ic_baseline_check_24"
+        android:onClick="checkClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
         app:layout_constraintStart_toStartOf="parent" />
 

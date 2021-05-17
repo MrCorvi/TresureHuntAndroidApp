@@ -31,5 +31,7 @@
     <string name="success_description">Congratulations! This is your GameId. It will be necessary to play. SAVE IT to do not forget it! </string>
 
     <string name="recap_text">Treasure Hunt Recap</string>
+    <string name="SuccessTitle">You Won !!!</string>
+    <string name="goHomeButton">Home</string>
 
 </resources>

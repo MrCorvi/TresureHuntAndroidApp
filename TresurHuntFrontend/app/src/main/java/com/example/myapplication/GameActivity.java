@@ -37,7 +37,11 @@ public class GameActivity extends AppCompatActivity {
     private List<Step> stepList;
     private int currentStep = 0;
 
-    private int hints = 3;
+    private int maxPosSteps = 0;
+    private int maxImgSteps = 0;
+
+    private int maxHints = 3;
+    private int hints = maxHints;
     private int imageHintsUsed = 0;
 
     @Override
@@ -102,6 +106,9 @@ public class GameActivity extends AppCompatActivity {
                             TextView imgLabel = (TextView) findViewById(R.id.image_step_counter_label);
                             imgLabel.setText("0/"+nImages.toString());
 
+                            maxPosSteps = nPos;
+                            maxImgSteps = nImages;
+
                             System.out.println(nImages);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -121,10 +128,33 @@ public class GameActivity extends AppCompatActivity {
         queue.add(request);
     }
 
+    public void checkClick(View view){
+
+        //Distinguish between type of steps
+        boolean success = true;
+        if(!stepList.get(currentStep).isPositionQuestion){
+            // TODO Marsha: attivare la videocamera e far scattare la foto da far controllare al modello
+        }else{
+            // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
+        }
+
+        //if success, next step
+        if(success){
+            currentStep++;
+            setTopBarCounters();
+        }
+
+        //Send to victory activity if it was last step
+        if(currentStep >= stepList.size()){
+            Intent intent = new Intent(GameActivity.this, SuccessActivity.class);
+            intent.putExtra("hintUsed", maxHints - hints);
+            startActivity(intent);
+        }
+    }
+
     public void listStepsClick(View view){
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(GameActivity.this, ListViewActivity.class);
-        //intent.putExtra("gameId", game.id);
         intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepList);
         startActivity(intent);
     }
@@ -149,13 +179,30 @@ public class GameActivity extends AppCompatActivity {
 
         if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
-            Intent intent = new Intent(GameActivity.this, GameHintActivity.class);
-            intent.putExtra("answer", stepList.get(currentStep).answer);
-            intent.putExtra("imageHintsUsed", imageHintsUsed);
-            startActivity(intent);
+            // TODO Marsha: chiama ;'activity dell'impiccato
         }else{
             // TODO Gianmarco deve far comparire il cerchio sulla mappa o diminuirne il raggio
         }
 
+    }
+
+    private void setTopBarCounters(){
+        Integer nImages = 0;
+        Integer nPos = 0;
+
+        //we add all the steps recived to the stepList
+        for(int i=0; i < currentStep; i++){
+            Step step = stepList.get(i);
+            if(step.isPositionQuestion)
+                nPos++;
+            else
+                nImages++;
+        }
+
+        //Set the labels of the top-bar
+        TextView posLabel = (TextView) findViewById(R.id.pos_step_counter_label);
+        posLabel.setText(nPos.toString()+"/"+maxPosSteps);
+        TextView imgLabel = (TextView) findViewById(R.id.image_step_counter_label);
+        imgLabel.setText(nImages.toString()+"/"+maxImgSteps);
     }
 }

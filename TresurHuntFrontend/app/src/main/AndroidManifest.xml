@@ -10,9 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GameStepQuestionActivity"
-            android:parentActivityName=".GameActivity"/>
-        <activity android:name=".GameHintActivity" />
+        <activity android:name=".SuccessActivity"></activity>
+        <activity
+            android:name=".GameStepQuestionActivity"
+            android:parentActivityName=".GameActivity" />
         <activity android:name=".SearchGameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
