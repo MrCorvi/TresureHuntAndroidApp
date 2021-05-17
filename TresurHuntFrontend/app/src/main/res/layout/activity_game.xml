@@ -55,7 +55,8 @@
         android:layout_marginHorizontal="45dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button"
-        android:src="@drawable/ic_location"
+        android:src="@drawable/ic_baseline_textsms_24"
+        android:onClick="questionClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
         app:layout_constraintEnd_toStartOf="@+id/hintButton"
         app:layout_constraintStart_toEndOf="@+id/checkButton" />
@@ -67,7 +68,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_button"
-        android:src="@drawable/ic_location"
+        android:src="@drawable/question_mark"
+        android:onClick="hintClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

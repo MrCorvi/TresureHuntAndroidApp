@@ -21,12 +21,6 @@ public class ListViewActivity extends AppCompatActivity {
 
     private ListView listView;
     private List<Step> stepList;
-    private String [] list = {
-            "A",
-            "B",
-            "C",
-            "D"
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

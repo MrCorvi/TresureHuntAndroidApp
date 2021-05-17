@@ -35,7 +35,10 @@ public class GameActivity extends AppCompatActivity {
 
     private int gameId;
     private List<Step> stepList;
-    private int currentStep = 1;
+    private int currentStep = 0;
+
+    private int hints = 3;
+    private int imageHintsUsed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,5 +127,35 @@ public class GameActivity extends AppCompatActivity {
         //intent.putExtra("gameId", game.id);
         intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepList);
         startActivity(intent);
+    }
+
+    public void questionClick(View view){
+        //Allow to switch from the current Activity to the next
+        Intent intent = new Intent(GameActivity.this, GameStepQuestionActivity.class);
+        intent.putExtra("question", stepList.get(currentStep).question);
+        intent.putExtra("isPositionQuestion", stepList.get(currentStep).isPositionQuestion);
+        startActivity(intent);
+    }
+
+    public void hintClick(View view){
+
+        if(hints <= 0){
+            return;
+        }
+
+        //decrease hint counter
+        hints--;
+        System.out.println(hints);
+
+        if(stepList.get(currentStep).isPositionQuestion){
+            imageHintsUsed++;
+            Intent intent = new Intent(GameActivity.this, GameHintActivity.class);
+            intent.putExtra("answer", stepList.get(currentStep).answer);
+            intent.putExtra("imageHintsUsed", imageHintsUsed);
+            startActivity(intent);
+        }else{
+            // TODO Gianmarco deve far comparire il cerchio sulla mappa o diminuirne il raggio
+        }
+
     }
 }
