@@ -147,7 +147,7 @@ public class GameActivity extends AppCompatActivity {
         hints--;
         System.out.println(hints);
 
-        if(stepList.get(currentStep).isPositionQuestion){
+        if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
             Intent intent = new Intent(GameActivity.this, GameHintActivity.class);
             intent.putExtra("answer", stepList.get(currentStep).answer);
