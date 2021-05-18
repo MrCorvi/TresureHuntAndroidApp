@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
@@ -20,6 +22,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.models.Game;
 import com.example.myapplication.models.Step;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
     private String backendRoot = "http://10.0.2.2:8080";
 
@@ -43,6 +48,8 @@ public class GameActivity extends AppCompatActivity {
     private int maxHints = 3;
     private int hints = maxHints;
     private int imageHintsUsed = 0;
+
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +120,7 @@ public class GameActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+
                     }
                 },
                 new Response.ErrorListener() { //Called on error response
@@ -123,9 +131,21 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
         );
-
         // Add the request to the RequestQueue.
         queue.add(request);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //check for the existence of the fragment
+        if (findViewById(R.id.map)==null){
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+
     }
 
     public void checkClick(View view){
@@ -204,5 +224,30 @@ public class GameActivity extends AppCompatActivity {
         posLabel.setText(nPos.toString()+"/"+maxPosSteps);
         TextView imgLabel = (TextView) findViewById(R.id.image_step_counter_label);
         imgLabel.setText(nImages.toString()+"/"+maxImgSteps);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
     }
 }
