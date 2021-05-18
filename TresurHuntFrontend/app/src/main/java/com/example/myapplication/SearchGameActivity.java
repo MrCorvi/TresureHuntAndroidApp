@@ -36,7 +36,7 @@ public class SearchGameActivity extends AppCompatActivity {
 
     private ListView listView;
     private RequestQueue queue;
-    private String backendRoot = "http://192.168.1.4:8080";
+    private String backendRoot = "http://10.0.2.2:8080";
     private String [] list ;
 
 

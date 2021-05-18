@@ -44,8 +44,8 @@ import java.util.Map;
 
 public class RecapActivity extends AppCompatActivity {
 
-    private final String url ="http://192.168.1.4:8080/game"; // insert private IP
-    //private final String url ="http://10.0.2.2:8080/game"; for emulator. "Localhost doesn't work"
+    //private final String url ="http://192.168.1.4:8080/game"; // insert private IP
+    private final String url ="http://10.0.2.2:8080/game"; //for emulator. "Localhost doesn't work"
     //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"; // test https
     //private final String url = "http://echo.jsontest.com/title/ipsum/content/blah"; // test http not-local
     private final String alertMessage = "Min length achieved";

@@ -31,7 +31,7 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity {
 
-    private String backendRoot = "http://192.168.1.4:8080";
+    private String backendRoot = "http://10.0.2.2:8080";
 
     private int gameId;
     private List<Step> stepList;
