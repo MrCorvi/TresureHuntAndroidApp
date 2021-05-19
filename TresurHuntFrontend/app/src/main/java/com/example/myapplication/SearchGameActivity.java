@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.models.Game;
+import com.example.myapplication.models.GlobalClass;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -36,7 +36,7 @@ public class SearchGameActivity extends AppCompatActivity {
 
     private ListView listView;
     private RequestQueue queue;
-    private String backendRoot = "http://10.0.2.2:8080";
+    private String backEndURL;
     private String [] list ;
 
 
@@ -51,6 +51,10 @@ public class SearchGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_game);
+
+        // Get Global Params
+        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+        backEndURL = globalClass.getBackEndURL();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -91,7 +95,7 @@ public class SearchGameActivity extends AppCompatActivity {
                 // Request a string response from the provided URL.
                 JsonObjectRequest stringRequest = new JsonObjectRequest(
                         Request.Method.GET,
-                        backendRoot + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
+                        backEndURL + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
                         null,
                         new Response.Listener<JSONObject>() { //Called on successful response
                             @SuppressLint("ResourceAsColor")

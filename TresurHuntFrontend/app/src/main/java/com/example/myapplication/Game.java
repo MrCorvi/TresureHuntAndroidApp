@@ -26,7 +26,6 @@ public class Game {
     }
 
     public void clear(){
-
         questions.clear();
         answers.clear();
         stepTypes.clear();

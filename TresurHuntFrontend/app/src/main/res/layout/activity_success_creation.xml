@@ -44,6 +44,11 @@
         <Button
             android:id="@+id/confirmRecapButton"
             style="@style/Widget.AppCompat.Button.Borderless"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
             android:layout_marginTop="100dp"
             android:onClick="onConfirmClick"
             android:text="@string/confirm_button"
@@ -53,5 +58,6 @@
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/beige"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
