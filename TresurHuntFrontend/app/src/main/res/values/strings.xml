@@ -43,6 +43,6 @@
         <string name="back_end_url">http://echo.jsontest.com/title/ipsum/content/blah</string>
     -->
 
-    <string name="back_end_url">https://127.0.0.1:8080</string>
+    <string name="back_end_url">localhost:8080</string>
 
 </resources>
