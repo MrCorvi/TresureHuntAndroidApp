@@ -95,7 +95,7 @@ public class SearchGameActivity extends AppCompatActivity {
                 // Request a string response from the provided URL.
                 JsonObjectRequest stringRequest = new JsonObjectRequest(
                         Request.Method.GET,
-                        backEndURL + "/games?initName="+query, //Here we search in the database all the games that have the quarry term in it
+                        backEndURL.concat("/games?initName="+query), //Here we search in the database all the games that have the quarry term in it
                         null,
                         new Response.Listener<JSONObject>() { //Called on successful response
                             @SuppressLint("ResourceAsColor")

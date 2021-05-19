@@ -52,7 +52,6 @@ public class RecapActivity extends AppCompatActivity {
         // Get Global Params
         GlobalClass globalClass = (GlobalClass) getApplicationContext();
         backEndURL = globalClass.getBackEndURL();
-        backEndURL = backEndURL.concat("/game");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -146,7 +145,8 @@ public class RecapActivity extends AppCompatActivity {
         System.out.println("REQUEST BODY: " + requestBody);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(
-                Request.Method.POST, backEndURL, jsonBody,
+                Request.Method.POST, 
+                backEndURL.concat("/game"), jsonBody,
                 new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
                     public void onResponse(JSONObject response) {
