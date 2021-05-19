@@ -30,8 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
 
 public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 

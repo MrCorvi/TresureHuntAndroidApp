@@ -2,10 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import android.annotation.SuppressLint;
-import android.app.SearchManager;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.models.Game;
+import com.example.myapplication.models.GlobalClass;
 import com.example.myapplication.models.Step;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -31,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {

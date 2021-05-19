@@ -48,6 +48,9 @@
         android:gravity="center"
         android:onClick="joinSubmitButtonClick"
         android:text="@string/joinSubmitGameButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:enabled="false"
         android:layout_width="350dp"
         android:layout_height="100dp"
@@ -55,6 +58,4 @@
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@color/beige"/>
-
-
 </LinearLayout>
