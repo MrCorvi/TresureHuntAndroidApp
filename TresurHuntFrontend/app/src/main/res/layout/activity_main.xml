@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/default_color">
 
     <Button
         android:id="@+id/joinButton"
@@ -13,12 +14,12 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="60dp"
         android:onClick="joinButtonClick"
-        android:text="@string/play_button"
         app:layout_constraintBottom_toTopOf="@+id/makeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/press_join" />
 
     <Button
         android:id="@+id/makeButton"
@@ -26,22 +27,11 @@
         android:layout_height="252dp"
         android:layout_marginBottom="68dp"
         android:onClick="makeButtonClick"
-        android:text="@string/make_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/provaText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="69dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/makeButton"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joinButton" />
+        android:background="@drawable/press_make" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
