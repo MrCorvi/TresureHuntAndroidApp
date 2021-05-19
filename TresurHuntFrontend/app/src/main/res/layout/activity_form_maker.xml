@@ -38,12 +38,15 @@
         <Button
             android:id="@+id/continuePlaceButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="400dp"
-            android:background="@drawable/confirm_circle"
             android:onClick="onContinueClick"
-            android:text="@string/continue_button" />
+            android:text="@string/continue_button"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:background="@drawable/press_btn"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/beige"/>
 
 
     </LinearLayout>

@@ -29,12 +29,17 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="@string/goHomeButton"
         android:onClick="homeClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@drawable/press_btn"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/beige"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
