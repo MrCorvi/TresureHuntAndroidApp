@@ -44,10 +44,7 @@ import java.util.Map;
 
 public class RecapActivity extends AppCompatActivity {
 
-    //private final String url ="http://192.168.1.4:8080/game"; // insert private IP
-    private final String url ="http://10.0.2.2:8080/game"; //for emulator. "Localhost doesn't work"
-    //private final String url = "https://postman-echo.com/get?foo1=bar1&foo2=bar2"; // test https
-    //private final String url = "http://echo.jsontest.com/title/ipsum/content/blah"; // test http not-local
+    private String backEndURL;
     private final String alertMessage = "Min length achieved";
 
     private Game game;
@@ -63,6 +60,10 @@ public class RecapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
+
+        // Get Global Params
+        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+        backEndURL = globalClass.getBackEndURL();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -119,7 +120,7 @@ public class RecapActivity extends AppCompatActivity {
 
     public void onConfirmClick(View view){
 
-        /*StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        /*StringRequest stringRequest = new StringRequest(Request.Method.GET, backEndURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -156,7 +157,7 @@ public class RecapActivity extends AppCompatActivity {
         System.out.println("REQUEST BODY: " + requestBody);
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(
-                Request.Method.POST, url, jsonBody,
+                Request.Method.POST, backEndURL, jsonBody,
                 new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
                     public void onResponse(JSONObject response) {
@@ -180,7 +181,7 @@ public class RecapActivity extends AppCompatActivity {
                     }
                 });
 
-        /*StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        /*StringRequest stringRequest = new StringRequest(Request.Method.POST, backEndURL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("VOLLEY", response);

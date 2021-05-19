@@ -36,7 +36,7 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
-    private String backendRoot = "http://10.0.2.2:8080";
+    private String backEndURL;
 
     private int gameId;
     private List<Step> stepList;
@@ -56,6 +56,10 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // Get Global Params
+        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+        backEndURL = globalClass.getBackEndURL();
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
 
@@ -70,7 +74,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                backendRoot + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
+                backEndURL + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
                 null,
                 new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
