@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".GlobalClass"
+        android:name=".models.GlobalClass"
         android:usesCleartextTraffic="true">
         <activity android:name=".SuccessActivity"></activity>
         <activity
