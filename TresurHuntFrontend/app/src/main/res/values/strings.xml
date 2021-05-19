@@ -34,4 +34,15 @@
     <string name="SuccessTitle">You Won !!!</string>
     <string name="goHomeButton">Home</string>
 
+    <!--
+        Examples of BackEnd String connections
+        <string name="back_end_url">http://192.168.1.4:8080</string> 
+        <string name="back_end_url">http://10.0.2.2:8080</string>
+        <string name="back_end_url">http://10.0.2.2:8080/game</string>
+        <string name="back_end_url">https://postman-echo.com/get?foo1=bar1&foo2=bar2</string>
+        <string name="back_end_url">http://echo.jsontest.com/title/ipsum/content/blah</string>
+    -->
+
+    <string name="back_end_url">http://10.0.2.2:8080</string>
+
 </resources>

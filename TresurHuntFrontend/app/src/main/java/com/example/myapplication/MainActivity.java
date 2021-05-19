@@ -18,10 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set Global Params
+        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+        globalClass.setBackEndURL(getString(R.string.back_end_url));
+
         text = findViewById(R.id.provaText);
         joinBut = findViewById(R.id.joinButton);
         makeBut = findViewById(R.id.makeButton);
-
     }
 
 
