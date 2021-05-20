@@ -148,7 +148,14 @@ public class GameCameraActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             detectLabelFromImage(imageBitmap);
             imageView.setImageBitmap(imageBitmap);
+        } else {
+            super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
 
