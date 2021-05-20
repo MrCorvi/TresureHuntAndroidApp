@@ -3,11 +3,14 @@ package com.example.myapplication;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,6 +36,8 @@ import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
+    // Code Request
+    static final int REQUEST_CODE = 0;
     private String backEndURL;
 
     private int gameId;
@@ -154,11 +159,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Distinguish between type of steps
         boolean success = true;
         if(!stepList.get(currentStep).isPositionQuestion){
-            // TODO Marsha: attivare la videocamera e far scattare la foto da far controllare al modello
+            // TODO Camera and MKL Kit Controller
+            gameCameraButtonClick();
         }else{
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
         }
+    }
 
+    public void stepController(Boolean success){
         //if success, next step
         if(success){
             currentStep++;
@@ -189,7 +197,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void hintClick(View view){
-
         if(hints <= 0){
             return;
         }
@@ -205,6 +212,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO Gianmarco deve far comparire il cerchio sulla mappa o diminuirne il raggio
         }
 
+    }
+
+    private void gameCameraButtonClick(){
+        // Open GameCameraActivity
+
+        Intent intent = new Intent(GameActivity.this, GameCameraActivity.class);
+        intent.putExtra("answer", stepList.get(currentStep).answer);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     private void setTopBarCounters(){
@@ -250,5 +265,17 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+    }
+
+    // Camera Override
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                String returnedResult = data.getData().toString();
+                // stepController(returnedResult);
+            }
+        }
     }
 }
