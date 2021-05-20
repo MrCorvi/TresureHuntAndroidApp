@@ -78,6 +78,8 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         }
         if (!isLocationEnabled())
             showAlert(1);
+
+
     }
 
     public void placeClick(View view){

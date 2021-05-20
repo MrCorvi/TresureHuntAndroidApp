@@ -3,5 +3,5 @@
     <item android:drawable="@drawable/btn_press"
         android:state_pressed="true">
     </item>
-    <item android:drawable="@drawable/btn"></item>
+    <item android:drawable="@drawable/btn" />
 </selector>

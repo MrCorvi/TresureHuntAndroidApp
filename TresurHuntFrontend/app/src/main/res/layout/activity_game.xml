@@ -17,7 +17,7 @@
     <LinearLayout
         android:id="@+id/toolbarmenucontainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30pt"
         android:gravity="center"
         android:minHeight="?attr/actionBarSize"
         android:orientation="horizontal"
@@ -29,16 +29,18 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_button_game_bottom_toolbar"
+            android:background="@drawable/btn_press"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_location" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_button_game_bottom_toolbar"
+            android:background="@drawable/btn_press"
             android:clickable="true"
+            android:scaleType="centerInside"
             android:onClick="listStepsClick"
             android:src="@drawable/ic_list" />
 
@@ -50,7 +52,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/press_circle"
         android:src="@drawable/ic_baseline_check_24"
         android:onClick="checkClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
@@ -62,7 +64,7 @@
         android:layout_height="50dp"
         android:layout_marginHorizontal="45dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/press_circle"
         android:src="@drawable/ic_baseline_textsms_24"
         android:onClick="questionClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"
@@ -75,7 +77,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/press_circle"
         android:src="@drawable/question_mark"
         android:onClick="hintClick"
         app:layout_constraintBottom_toTopOf="@+id/toolbarmenucontainer"

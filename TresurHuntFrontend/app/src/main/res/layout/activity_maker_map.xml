@@ -15,12 +15,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:context=".MapsActivity" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sea2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="667dp"
-        android:background="@drawable/command_layout"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,39 +38,41 @@
         app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="0dp">
 
-        <Button
+
+        <ImageButton
             android:id="@+id/placeButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30pt"
+            android:layout_height="30pt"
             android:layout_marginHorizontal="10dp"
-            android:background="@drawable/edit_circle"
+            android:scaleType="centerInside"
+            android:background="@drawable/press_circle"
             android:onClick="placeClick"
             android:padding="15dp"
-            android:text="@string/place_button"
-            android:textSize="16sp" />
+            android:src="@drawable/ic_location"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/cameraButton"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30pt"
+            android:layout_height="30pt"
             android:layout_marginRight="100dp"
-            android:background="@drawable/edit_circle"
+            android:background="@drawable/press_circle"
+            android:src="@drawable/ic_baseline_camera_alt_24"
             android:onClick="cameraClick"
             android:padding="15dp"
-            android:text="@string/camera_button"
             android:textSize="16sp" />
 
         <Button
             android:id="@+id/finishButton"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/confirm_circle"
+            android:layout_height="30pt"
+            android:background="@drawable/btn_press"
             android:onClick="finishClick"
             android:padding="15dp"
             android:text="@string/finish_button"
+            android:layout_marginRight="5pt"
             android:textSize="16sp" />
     </LinearLayout>
 
