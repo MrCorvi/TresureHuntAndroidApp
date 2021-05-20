@@ -4,13 +4,11 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,7 +18,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.models.Game;
 import com.example.myapplication.models.GlobalClass;
 import com.example.myapplication.models.Step;
 import com.google.android.gms.maps.GoogleMap;
@@ -166,6 +163,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    // Control the number of the step
     public void stepController(Boolean success){
         //if success, next step
         if(success){
@@ -216,7 +214,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void gameCameraButtonClick(){
         // Open GameCameraActivity
-
         Intent intent = new Intent(GameActivity.this, GameCameraActivity.class);
         intent.putExtra("answer", stepList.get(currentStep).answer);
         startActivityForResult(intent, REQUEST_CODE);
@@ -267,14 +264,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
     }
 
-    // Camera Override
+    // Game Camera Activity Return Data
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 String returnedResult = data.getData().toString();
-                // stepController(returnedResult);
+                stepController(Boolean.parseBoolean(returnedResult));
             }
         }
     }
