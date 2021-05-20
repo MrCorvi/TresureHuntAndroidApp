@@ -38,6 +38,7 @@
         <activity android:name=".CameraFormActivity" />
         <activity android:name=".PlaceFormActivity" />
         <activity android:name=".MakerMapActivity" />
+
         <activity android:name=".FormMakerActivity" 
             android:parentActivityName=".MainActivity"/>
         <activity
@@ -49,6 +50,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
