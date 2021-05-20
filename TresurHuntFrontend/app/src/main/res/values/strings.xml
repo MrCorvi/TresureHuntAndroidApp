@@ -34,6 +34,12 @@
     <string name="SuccessTitle">You Won !!!</string>
     <string name="goHomeButton">Home</string>
 
+    <string name="camera_description">Try to do a Picture of the Object you think is the solution</string>
+    <string name="found_image">Congratulations</string>
+    <string name="found_image_message">Well done! You found it!</string>
+    <string name="try_again">Try Again!</string>
+    <string name="try_again_message">You have to do it again, search more! You can found it!</string>
+
     <!--
         Examples of BackEnd String connections
         <string name="back_end_url">http://192.168.1.4:8080</string> 
