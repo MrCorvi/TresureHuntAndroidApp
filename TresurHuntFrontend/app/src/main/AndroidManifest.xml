@@ -20,7 +20,8 @@
         <activity
             android:name=".GameStepQuestionActivity"
             android:parentActivityName=".GameActivity" />
-        <activity android:name=".SearchGameActivity">
+        <activity android:name=".SearchGameActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -37,7 +38,8 @@
         <activity android:name=".CameraFormActivity" />
         <activity android:name=".PlaceFormActivity" />
         <activity android:name=".MakerMapActivity" />
-        <activity android:name=".FormMakerActivity" />
+        <activity android:name=".FormMakerActivity" 
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".GameCameraActivity"
             android:parentActivityName=".GameActivity">
