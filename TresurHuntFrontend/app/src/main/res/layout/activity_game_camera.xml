@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".GameCameraActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,27 +17,48 @@
             android:id="@+id/titleText"
             android:textSize="@dimen/titleSize"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="40pt"
+            android:layout_marginTop="40dp"
             android:text="@string/game_text"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="166dp"
             tools:layout_editor_absoluteY="67dp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_marginTop="30dp"
-            android:layout_width="367dp"
-            android:layout_height="379dp"
-            tools:layout_editor_absoluteX="28dp"
-            tools:layout_editor_absoluteY="115dp"
-            tools:srcCompat="@drawable/join_camera" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0pt"
+            android:layout_weight="1"
+            android:layout_marginTop="10pt">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:background="@drawable/join_press"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_marginTop="30dp"
+                android:layout_width="367dp"
+                android:layout_height="379dp"
+                android:layout_centerInParent="true"
+                tools:layout_editor_absoluteX="28dp"
+                tools:layout_editor_absoluteY="115dp"
+                tools:srcCompat="@drawable/join_camera" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/descriptionText"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30pt"
             android:text="@string/camera_description"
+            android:layout_weight="1"
             tools:layout_editor_absoluteX="174dp"
             tools:layout_editor_absoluteY="562dp" />
 
@@ -50,7 +72,9 @@
             android:background="@drawable/press_btn"
             android:textSize="28sp"
             android:textStyle="bold"
-            android:textColor="@color/beige" />
+            android:textColor="@color/beige"
+            android:layout_marginBottom="16pt"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

@@ -131,12 +131,8 @@ public class SearchGameActivity extends AppCompatActivity {
                                     Button joinButton = (Button) findViewById(R.id.joinSubmitGameButton);
                                     if(gameList.size() > 0) {
                                         joinButton.setEnabled(true);
-                                        joinButton.setTextColor(R.color.common_google_signin_btn_text_dark);
-                                        joinButton.setBackgroundColor(R.color.colorPrimary);
                                     }else{
                                         joinButton.setEnabled(false);
-                                        joinButton.setTextColor(R.color.common_google_signin_btn_text_dark_disabled);
-                                        joinButton.setBackgroundColor(R.color.colorPrimaryDark);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
