@@ -8,10 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView text;
     private Button joinBut, makeBut;
+    static PlacesClient placesClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
         text = findViewById(R.id.provaText);
         joinBut = findViewById(R.id.joinButton);
         makeBut = findViewById(R.id.makeButton);
+
+        // Initialize the SDK
+        String api_key = "AIzaSyBEk5dFEO0cyysrpoOVZiyzFVL-KzNehJI";
+        Places.initialize(getApplicationContext(),api_key);
+
+        // Create a new PlacesClient instance
+        placesClient = Places.createClient(this);
 
     }
 

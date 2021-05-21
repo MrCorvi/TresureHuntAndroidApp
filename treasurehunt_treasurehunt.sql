@@ -28,8 +28,8 @@ CREATE TABLE `treasurehunt` (
   `gameID` int(11) NOT NULL,
   `gameName` varchar(45) NOT NULL,
   `step` int(11) NOT NULL,
-  `question` varchar(45) NOT NULL,
-  `answer` varchar(45) NOT NULL,
+  `question` varchar(100) NOT NULL,
+  `answer` varchar(100) NOT NULL,
   `stepType` tinyint(1) NOT NULL,
   PRIMARY KEY (`gameID`,`step`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
