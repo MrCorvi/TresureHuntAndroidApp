@@ -2,13 +2,13 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.DialogInterface;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -31,7 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.models.Game;
+import com.example.myapplication.models.GlobalClass;
 import com.example.myapplication.models.Step;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -50,7 +50,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.random;
@@ -58,7 +57,9 @@ import static java.lang.Math.sqrt;
 
 public class GameActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
-    private String backendRoot = "http://10.0.2.2:8080";
+    // Code Request
+    static final int REQUEST_CODE = 0;
+    private String backEndURL;
 
     private int gameId;
     private List<Step> stepList;
@@ -89,6 +90,10 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        // Get Global Params
+        GlobalClass globalClass = (GlobalClass) getApplicationContext();
+        backEndURL = globalClass.getBackEndURL();
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
 
@@ -104,7 +109,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                backendRoot + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
+                backEndURL + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
                 null,
                 new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
@@ -255,8 +260,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
-            // TODO Marsha: attivare la videocamera e far scattare la foto da far controllare al modello
-            success = true;
+            // TODO Camera and MKL Kit Controller
+            gameCameraButtonClick();
         }else{
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
             Location targetLocation = new Location("");//fictitious provider
@@ -273,8 +278,12 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             else
                 Toast.makeText(this, "Non sei ancora sulla giusta strada!" , Toast.LENGTH_SHORT).show();
 
+            stepController(success);
         }
+    }
 
+    // Control the number of the step
+    public void stepController(Boolean success){
         //if success, next step
         if(success){
             //annuncia successo del task
@@ -325,7 +334,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void hintClick(View view){
-
         if(hints <= 0){
             return;
         }
@@ -352,6 +360,13 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+    }
+
+    private void gameCameraButtonClick(){
+        // Open GameCameraActivity
+        Intent intent = new Intent(GameActivity.this, GameCameraActivity.class);
+        intent.putExtra("answer", stepList.get(currentStep).answer);
+        startActivityForResult(intent, REQUEST_CODE);
     }
 
     private void setTopBarCounters(){
@@ -460,5 +475,17 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                 });
         dialog.show();
 
+    }
+
+    // Game Camera Activity Return Data
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                String returnedResult = data.getData().toString();
+                stepController(Boolean.parseBoolean(returnedResult));
+            }
+        }
     }
 }

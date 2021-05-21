@@ -44,14 +44,18 @@
 
     <Button
         android:id="@+id/joinSubmitGameButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        android:background="#076"
         android:gravity="center"
         android:onClick="joinSubmitButtonClick"
         android:text="@string/joinSubmitGameButton"
-        android:enabled="false"/>
-
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:enabled="false"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/press_btn"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/beige"/>
 </LinearLayout>

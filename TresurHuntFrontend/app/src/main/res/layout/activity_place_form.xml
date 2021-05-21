@@ -6,45 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".PlaceFormActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        >
+    <TextView
+        android:id="@+id/textQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/question_text"
+        android:textSize="@dimen/titleSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/inputQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/question_display"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textQuestion"
+        tools:ignore="LabelFor" />
 
-        <TextView
-            android:id="@+id/textQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="@string/question_text"
-            android:textSize="@dimen/titleSize"
-            />
-
-        <EditText
-            android:id="@+id/inputQuestion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:inputType="none"
-            android:text="@string/question_display"
-            tools:ignore="LabelFor"
-            android:textAlignment="center"
-            />
-
-        <Button
-            android:id="@+id/continuePlaceButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
-            android:background="@drawable/confirm_circle"
-            android:onClick="onConfirmClick"
-            android:text="@string/confirm_button" />
-
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/continuePlaceButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/press_btn"
+        android:onClick="onConfirmClick"
+        android:text="@string/confirm_button"
+        android:textColor="@color/beige"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

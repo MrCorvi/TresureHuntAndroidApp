@@ -41,10 +41,12 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
 
 public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
 
@@ -94,6 +96,8 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         }
         if (!isLocationEnabled())
             showAlert(1);
+
+
     }
 
     public void placeClick(View view) {
@@ -183,7 +187,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         pos_marker = mMap.addMarker(mo);
-        mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ),200 );
+        mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ));
     }
 
     @Override
