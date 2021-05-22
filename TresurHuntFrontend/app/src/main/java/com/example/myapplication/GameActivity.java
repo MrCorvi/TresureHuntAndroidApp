@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -64,7 +65,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int gameId;
     private List<Step> stepList;
     private List<CircleOptions> hintList;
-    private int hintStep=0;
+    private int hintStep = 0;
     private int currentStep = 0;
 
     private int maxPosSteps = 0;
@@ -109,7 +110,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.GET,
-                backEndURL + "/game?gameId="+gameId, //Here we search in the database all the games that have the quarry term in it
+                backEndURL + "/game?gameId=" + gameId, //Here we search in the database all the games that have the quarry term in it
                 null,
                 new Response.Listener<JSONObject>() { //Called on successful response
                     @Override
@@ -122,7 +123,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Integer nPos = 0;
 
                             //we add all the steps recived to the stepList
-                            for(int i=0; i < jsonArrey.length(); i++){
+                            for (int i = 0; i < jsonArrey.length(); i++) {
                                 JSONObject step = jsonArrey.getJSONObject(i);
                                 Integer id = step.getInt("step");
                                 Boolean isPositionQuestion = step.getBoolean("stepType");
@@ -140,7 +141,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                                         answer
                                 ));
 
-                                if(isPositionQuestion)
+                                if (isPositionQuestion)
                                     nPos++;
                                 else
                                     nImages++;
@@ -148,18 +149,17 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                             //Set the labels of the top-bar
                             TextView posLabel = (TextView) findViewById(R.id.pos_step_counter_label);
-                            posLabel.setText("0/"+nPos.toString());
+                            posLabel.setText("0/" + nPos.toString());
                             TextView imgLabel = (TextView) findViewById(R.id.image_step_counter_label);
-                            imgLabel.setText("0/"+nImages.toString());
+                            imgLabel.setText("0/" + nImages.toString());
 
                             maxPosSteps = nPos;
                             maxImgSteps = nImages;
                             System.out.println(nImages);
                             //prepare hints for place steps
-                            for(int i=0;i<stepList.size();i++){
+                            for (int i = 0; i < stepList.size(); i++) {
                                 if (stepList.get(i).isPositionQuestion)
                                     hintList.add(hintLoader(i));
-
                             }
 
                         } catch (JSONException e) {
@@ -200,6 +200,9 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             mo = new MarkerOptions().position(new LatLng(0, 0)).title("My Current Location");
             String provider = locationManager.getBestProvider(criteria, true);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             locationManager.requestLocationUpdates(provider, 1000, 5, this);
         }
         if (!isLocationEnabled())
@@ -227,8 +230,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .strokeColor(Color.RED)
                 .fillColor(Color.argb(70,150,50,50));
         return cl_circle;
-
-
     }
 
     public LatLng addNoiseToCoordinates(LatLng c, int r)
@@ -346,7 +347,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
-            // TODO Marsha: chiama ;'activity dell'impiccato
+            // Hangman Activity
+            hangmanButtonClick();
         }else{
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
@@ -362,6 +364,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+    }
+
+    private void hangmanButtonClick(){
+        // Open GameCameraActivity
+        Intent intent = new Intent(GameActivity.this, GameHangmanActivity.class);
+        intent.putExtra("answer", stepList.get(currentStep).answer);
+        intent.putExtra("hints", hints);
+        startActivity(intent);
     }
 
     private void gameCameraButtonClick(){

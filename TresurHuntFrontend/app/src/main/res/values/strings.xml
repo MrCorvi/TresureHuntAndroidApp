@@ -40,6 +40,9 @@
     <string name="try_again">Try Again!</string>
     <string name="try_again_message">You have to do it again, search more! You can found it!</string>
 
+    <string name="hint">Hint</string>
+    <string name="no_hint_message">Sorry, you already use your the hints</string>
+
     <!--
         Examples of BackEnd String connections
         <string name="back_end_url">http://192.168.1.4:8080</string> 
