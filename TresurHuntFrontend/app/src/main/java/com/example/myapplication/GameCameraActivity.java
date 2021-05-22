@@ -108,7 +108,7 @@ public class GameCameraActivity extends AppCompatActivity {
         Boolean success = true;
         List<String> result = resultLabels
                 .stream()
-                .filter(x -> x.contains(answer.toLowerCase()))
+                .filter(x -> x.equals(answer.toLowerCase()))
                 .collect(Collectors.toList());
 
         if (result.size() != 0){
@@ -144,6 +144,8 @@ public class GameCameraActivity extends AppCompatActivity {
             }
         };
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
