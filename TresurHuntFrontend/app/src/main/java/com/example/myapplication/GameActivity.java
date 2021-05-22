@@ -80,7 +80,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int imageHintsUsed = 0;
 
     private GoogleMap mMap;
-    private boolean f_up_pos = true;
+    private boolean f_up_pos;
     public static final int INIT_REQUEST_CODE = 777;
     private MarkerOptions mo;
     private Marker pos_marker;
@@ -196,7 +196,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onStart();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
 
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
@@ -208,6 +208,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             criteria.setPowerRequirement(Criteria.POWER_HIGH);
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             mo = new MarkerOptions().position(new LatLng(0, 0)).title("My Current Location");
+            f_up_pos = true;
             String provider = locationManager.getBestProvider(criteria, true);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -279,7 +280,12 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             float dist_from_goal = CurrentLocation.distanceTo(targetLocation);
             System.out.println(dist_from_goal);
             if (dist_from_goal<30)
+            {
                 success= true;
+                if (lastCircleHint != null) {
+                    lastCircleHint.remove();
+                }
+            }
             else if (dist_from_goal>= 30 && dist_from_goal <100)
                 Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_SHORT).show();
             else if (dist_from_goal>100 && dist_from_goal <= 1000)
@@ -425,7 +431,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
             f_up_pos=false;
         }
-
         LatLng CurrentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         //keep last position registered
         CurrentLocation = location;
