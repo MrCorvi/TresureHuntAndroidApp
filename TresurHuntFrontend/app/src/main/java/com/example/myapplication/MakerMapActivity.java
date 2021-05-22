@@ -278,9 +278,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-
-
-        private String makeTargetLocationTitle(double LATITUDE, double LONGITUDE) {
+        public String makeTargetLocationTitle(double LATITUDE, double LONGITUDE) {
             String strAdd = "";
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             try {

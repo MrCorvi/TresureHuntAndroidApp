@@ -76,6 +76,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int imageHintsUsed = 0;
 
     private GoogleMap mMap;
+    private boolean f_up_pos = true;
     public static final int INIT_REQUEST_CODE = 777;
     private MarkerOptions mo;
     private Marker pos_marker;
@@ -309,7 +310,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    public Double[] getCoordinatesFromLocationString(String loc){
+    public static Double[] getCoordinatesFromLocationString(String loc){
         loc = loc.split("\\(")[1];
         String[] loc_array = loc.substring(0,loc.length()-1).split(",");
         System.out.println(loc_array[0]);
@@ -403,13 +404,19 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-    LatLng CurrentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
-    //keep last position registered
-    CurrentLocation = location;
-    //update position marker and view
-    pos_marker.setPosition(CurrentCoordinates);
-    mMap.moveCamera(CameraUpdateFactory.newLatLng(CurrentCoordinates));
-    ///location.distanceTo() settare tolleranza -> condizione per chiamare step accomplished (<20)
+        //first update position
+        if (f_up_pos) {
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+            f_up_pos=false;
+        }
+
+        LatLng CurrentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
+        //keep last position registered
+        CurrentLocation = location;
+        //update position marker and view
+        pos_marker.setPosition(CurrentCoordinates);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(CurrentCoordinates));
+        ///location.distanceTo() settare tolleranza -> condizione per chiamare step accomplished (<20)
     }
 
     @Override
