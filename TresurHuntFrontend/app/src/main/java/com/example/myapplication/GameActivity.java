@@ -265,8 +265,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Distinguish between type of steps
         boolean success = false;
         Step c_step = stepList.get(currentStep);
-        //devo inizializzare la location relativa al prossimo step
-        Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
+
 
         System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
@@ -274,6 +273,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             gameCameraButtonClick();
         }else{
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
+            //devo inizializzare la location relativa al prossimo step
+            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
             Location targetLocation = new Location("");//fictitious provider
             targetLocation.setLatitude(latlng[0]);//your coords of course
             targetLocation.setLongitude(latlng[1]);
