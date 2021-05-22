@@ -75,14 +75,21 @@ public class RecapActivity extends AppCompatActivity {
         game = new Game(gameName, q,a,s);
 
         for(int i=0; i<game.getSize(); i++){
-            Double[] ll = GameActivity.getCoordinatesFromLocationString(game.getAnswers().get(i));
-            //chiedi a title_maker
-            String ans = makeTargetLocationTitle(ll[0],ll[1]) ;
+            Boolean cst_isplace = game.getStepTypes().get(i);
+            String ans = game.getAnswers().get(i);
+            //gestione domanda di tipo place
+            if (cst_isplace){
+                Double[] ll = GameActivity.getCoordinatesFromLocationString(ans);
+                //chiedi a title_maker
+                ans = makeTargetLocationTitle(ll[0],ll[1]);
+            }
+
+
             //gestire lunghezza stringa maggiore di 35 con ...
             if (ans.length()>33)
                 ans = ans.substring(0,34)+"...";
             list.add("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + ans);
-            System.out.println("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + a);
+            System.out.println("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + ans);
         }
 
         //instantiate custom adapter

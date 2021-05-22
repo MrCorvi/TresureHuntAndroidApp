@@ -86,6 +86,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private final int radius = 500;
     private LocationManager locationManager;
     private Location CurrentLocation;
+    private Circle lastCircleHint;
     final static int PERMISSION_ALL = 1;
     final static String[] PERMISSIONS = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
@@ -356,13 +357,16 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else{
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
-            if (hintStep == currentStep){
+            if (hintStep <= currentStep){
             //carico il livello corrente
             System.out.println(hintList.get(hintStep).getCenter().toString());
-            mMap.addCircle(hintList.get(hintStep));
+            if (lastCircleHint != null) {
+                lastCircleHint.remove();
+            }
+            lastCircleHint =mMap.addCircle(hintList.get(hintStep));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(hintList.get(hintStep).getCenter()));
             //aumento il livello
-            hintStep++;
+            hintStep = currentStep+1;
             }
             else{ Toast.makeText(this, "Hai già avuto il tuo aiuto!" , Toast.LENGTH_SHORT).show();
             }

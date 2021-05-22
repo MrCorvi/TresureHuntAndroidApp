@@ -10,6 +10,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,6 +22,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -29,20 +31,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Dash;
+import com.google.android.gms.maps.model.Dot;
+import com.google.android.gms.maps.model.Gap;
+import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PatternItem;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.maps.model.RoundCap;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -63,12 +73,12 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     final static int PERMISSION_ALL = 1;
     final static String[] PERMISSIONS = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
-    private Geocoder geocoder;
     private LatLng CurrentLocation;
+    private Boolean f_up_pos= true;
+    Polyline last_route;
     MarkerOptions mo;
     Marker pos_marker;
-    private HashMap<LatLng, Marker> GameStepMap = new HashMap<>();
-    private HashMap<LatLng, Integer> GameStepPosition = new HashMap<>();
+    private ArrayList<LatLng> GameStepPosition = new ArrayList<>();
     private LocationManager locationManager;
 
     @Override
@@ -111,7 +121,10 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
 
     public void placeClick(View view) {
         //recuperare le coordinate della posizione fissata attualmente
-        game.getAnswers().add(new LatLng(CurrentLocation.latitude,CurrentLocation.longitude).toString()); // IMPORTANT : If you press back in PlaceFormActivity
+        LatLng c_latlng = new LatLng(CurrentLocation.latitude,CurrentLocation.longitude);
+        game.getAnswers().add(c_latlng.toString()); // IMPORTANT : If you press back in PlaceFormActivity
+        GameStepPosition.add(c_latlng);
+        drawRoute();
         // the list will be corrupted. Not solved this issue
         // because in the final version it will be remove and
         // position evaluated and sent via intent in PlaceFormActivity
@@ -163,6 +176,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
                         .title(location_title)
                         .snippet("STEP:"+ game.getSize())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
             }
             if (requestCode == LAUNCH_CAMERA) {
                 game.getQuestions().add(data.getStringExtra("question"));
@@ -195,13 +209,24 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        ImageButton placebutton = (ImageButton) findViewById(R.id.placeButton);
+        placebutton.setEnabled(false);
+        //disable button until position is loaded
         pos_marker = mMap.addMarker(mo);
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ));
+
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
+        //first update position
+        if (f_up_pos) {
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+            f_up_pos=false;
+            //place button activation
+            ImageButton placebutton = (ImageButton) findViewById(R.id.placeButton);
+            placebutton.setEnabled(true);
+        }
         LatLng CurrentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         //keep last position registered
         CurrentLocation = CurrentCoordinates;
@@ -299,4 +324,23 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
             }
             return strAdd;
         }
+
+        public void drawRoute(){
+            if (last_route != null)
+                last_route.remove();
+
+            PolylineOptions line= new PolylineOptions();
+            for (int i=0;i<GameStepPosition.size();i++){
+                line.add(GameStepPosition.get(i))
+                        .width(5).color(Color.RED);
+            }
+
+            last_route = mMap.addPolyline(line);
+            last_route.setEndCap(new RoundCap());
+            last_route.setJointType(JointType.ROUND);
+            List<PatternItem> pattern = Arrays.asList(
+                    new Dot(), new Gap(20), new Dash(30), new Gap(20));
+            last_route.setPattern(pattern);
+        }
+
 }
