@@ -40,9 +40,12 @@
     <string name="try_again">Try Again!</string>
     <string name="try_again_message">You have to do it again, search more! You can found it!</string>
 
+    <string name="hangman">Hangman</string>
+    <string name="hangman_choose">Choose a Letter</string>
     <string name="question_help">To find the answer, take a look at this hint</string>
     <string name="hint">Hint</string>
     <string name="no_hint_message">Sorry, you already use your the hints</string>
+    <string name="error_message">Sorry, is not in the word</string>
 
     <string name="permission_need">Permission needed</string>
     <string name="permission_message">This permission is needed for use the game</string>
