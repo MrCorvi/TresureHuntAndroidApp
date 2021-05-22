@@ -44,6 +44,13 @@
     <string name="hint">Hint</string>
     <string name="no_hint_message">Sorry, you already use your the hints</string>
 
+    <string name="permission_need">Permission needed</string>
+    <string name="permission_message">This permission is needed for use the game</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+
     <!--
         Examples of BackEnd String connections
         <string name="back_end_url">http://192.168.1.4:8080</string> 
