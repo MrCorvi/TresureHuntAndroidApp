@@ -26,19 +26,21 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
+            android:id="@+id/mapButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/btn_press"
+            android:background="@drawable/press_btn"
             android:clickable="true"
             android:scaleType="centerInside"
             android:src="@drawable/ic_location" />
 
         <ImageButton
+            android:id="@+id/listButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/btn_press"
+            android:background="@drawable/press_btn"
             android:clickable="true"
             android:scaleType="centerInside"
             android:onClick="listStepsClick"

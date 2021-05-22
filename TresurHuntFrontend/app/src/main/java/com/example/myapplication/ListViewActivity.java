@@ -3,6 +3,8 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -24,7 +26,11 @@ public class ListViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ImageButton joinButton = (ImageButton) findViewById(R.id.listButton);
+        joinButton.setEnabled(false);
 
         Intent intent = getIntent();
         stepList = intent.getParcelableArrayListExtra("steps");
