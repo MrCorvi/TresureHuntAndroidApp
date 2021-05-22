@@ -84,7 +84,7 @@ public class GameHangmanActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
 
-            if (answerlist.contains(inputQuestion.getText().charAt(0))){
+            if (!(answerlist.contains(inputQuestion.getText().charAt(0)))){
                 usedlist.add(inputQuestion.getText().charAt(0));
 
                 maxTries--;

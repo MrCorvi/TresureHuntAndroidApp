@@ -83,11 +83,11 @@
             android:id="@+id/imageView"
             android:layout_width="200dp"
             android:layout_height="300dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="@+id/button3"
             app:layout_constraintStart_toStartOf="@+id/button3"
             tools:layout_editor_absoluteY="318dp"
-            tools:srcCompat="@drawable/hangma_3" />
+            tools:srcCompat="@drawable/hangma_5" />
 
         <Button
             android:id="@+id/hintButton"
@@ -95,7 +95,7 @@
             tools:layout_editor_absoluteX="150dp"
             tools:layout_editor_absoluteY="643dp"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_width="350dp"
             android:layout_height="100dp"
             android:background="@drawable/press_btn"
