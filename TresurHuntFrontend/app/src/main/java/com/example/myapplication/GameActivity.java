@@ -80,13 +80,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int imageHintsUsed = 0;
 
     private GoogleMap mMap;
-    private boolean f_up_pos = true;
+    private boolean f_up_pos;
     public static final int INIT_REQUEST_CODE = 777;
     private MarkerOptions mo;
     private Marker pos_marker;
     private final int radius = 500;
     private LocationManager locationManager;
     private Location CurrentLocation;
+    private Circle lastCircleHint;
     final static int PERMISSION_ALL = 1;
     final static String[] PERMISSIONS = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
@@ -195,7 +196,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onStart();
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.map2);
         mapFragment.getMapAsync(this);
 
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
@@ -207,6 +208,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             criteria.setPowerRequirement(Criteria.POWER_HIGH);
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             mo = new MarkerOptions().position(new LatLng(0, 0)).title("My Current Location");
+            f_up_pos = true;
             String provider = locationManager.getBestProvider(criteria, true);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
@@ -263,8 +265,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         //Distinguish between type of steps
         boolean success = false;
         Step c_step = stepList.get(currentStep);
-        //devo inizializzare la location relativa al prossimo step
-        Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
+
 
         System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
@@ -272,13 +273,20 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             gameCameraButtonClick();
         }else{
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
+            //devo inizializzare la location relativa al prossimo step
+            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
             Location targetLocation = new Location("");//fictitious provider
             targetLocation.setLatitude(latlng[0]);//your coords of course
             targetLocation.setLongitude(latlng[1]);
             float dist_from_goal = CurrentLocation.distanceTo(targetLocation);
             System.out.println(dist_from_goal);
             if (dist_from_goal<30)
+            {
                 success= true;
+                if (lastCircleHint != null) {
+                    lastCircleHint.remove();
+                }
+            }
             else if (dist_from_goal>= 30 && dist_from_goal <100)
                 Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_SHORT).show();
             else if (dist_from_goal>100 && dist_from_goal <= 1000)
@@ -365,13 +373,16 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         }else{
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
-            if (hintStep == currentStep){
+            if (hintStep <= currentStep){
             //carico il livello corrente
             System.out.println(hintList.get(hintStep).getCenter().toString());
-            mMap.addCircle(hintList.get(hintStep));
+            if (lastCircleHint != null) {
+                lastCircleHint.remove();
+            }
+            lastCircleHint =mMap.addCircle(hintList.get(hintStep));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(hintList.get(hintStep).getCenter()));
             //aumento il livello
-            hintStep++;
+            hintStep = currentStep+1;
             }
             else{ Toast.makeText(this, "Hai già avuto il tuo aiuto!" , Toast.LENGTH_SHORT).show();
             }
@@ -421,7 +432,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
             f_up_pos=false;
         }
-
         LatLng CurrentCoordinates = new LatLng(location.getLatitude(), location.getLongitude());
         //keep last position registered
         CurrentLocation = location;
