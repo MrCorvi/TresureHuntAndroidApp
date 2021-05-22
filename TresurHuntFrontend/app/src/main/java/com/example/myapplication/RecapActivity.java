@@ -71,8 +71,12 @@ public class RecapActivity extends AppCompatActivity {
         game = new Game(gameName, q,a,s);
 
         for(int i=0; i<game.getSize(); i++){
-            list.add("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + game.getAnswers().get(i));
-            System.out.println("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + game.getAnswers().get(i));
+            String ans = game.getAnswers().get(i);
+            //gestire lunghezza stringa maggiore di 35 con ...
+            if (ans.length()>33)
+                ans = ans.substring(0,34)+"...";
+            list.add("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + ans);
+            System.out.println("Q: " + game.getQuestions().get(i)+ "\n"+ "A: " + a);
         }
 
         //instantiate custom adapter

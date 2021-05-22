@@ -111,7 +111,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
 
     public void placeClick(View view) {
         //recuperare le coordinate della posizione fissata attualmente
-        game.getAnswers().add(CurrentLocation.toString()); // IMPORTANT : If you press back in PlaceFormActivity
+        game.getAnswers().add(new LatLng(CurrentLocation.latitude,CurrentLocation.longitude).toString()); // IMPORTANT : If you press back in PlaceFormActivity
         // the list will be corrupted. Not solved this issue
         // because in the final version it will be remove and
         // position evaluated and sent via intent in PlaceFormActivity
@@ -294,6 +294,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
                     }
                     strAdd = strReturnedAddress.toString();
                 } else {
+                    strAdd = "Unknown place";
                 }
             } catch (Exception e) {
                 e.printStackTrace();
