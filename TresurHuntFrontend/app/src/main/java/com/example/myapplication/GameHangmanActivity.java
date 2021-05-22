@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,64 +55,71 @@ public class GameHangmanActivity extends AppCompatActivity {
 
         answerChar = answer.toCharArray();
         hangmanController(answerChar);
-
+        imageView.setImageResource(R.drawable.hangma_5);
     }
 
     public void onHintClick(View v) {
-        hints--;
         if (hints <= 0){
             // imageView.setImageResource(R.drawable.hangma_0);
             hintButton.setEnabled(false);
             Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
+        } else {
+            hints--;
+            for(char c : answerlist){
+                if(!usedlist.contains(c)){
+                    checkChar(c);
+                    break;
+                }
+            }
         }
     }
 
     public void onOkClick(View view) {
-        String hangmanText = solutionText.getText().toString();
-        StringBuilder sb = new StringBuilder(solutionText.getText().toString());
+        checkChar(inputQuestion.getText().charAt(0));
+    }
 
-        if (answerlist.contains(inputQuestion.getText().charAt(0))){
-            System.out.println(hangmanText);
+    public void checkChar(char compareChar) {
+        StringBuilder sb = new StringBuilder(solutionText.getText().toString());
+        if (answerlist.contains(compareChar)){
             for(int i=0; i<answerlist.size(); i++) {
-                if (answerlist.get(i) == inputQuestion.getText().charAt(0)) {
-                    sb.setCharAt(2*i, inputQuestion.getText().charAt(0));
+                if (answerlist.get(i) == compareChar) {
+                    sb.setCharAt(2*i, compareChar);
                 }
             }
+            usedlist.add(compareChar);
             solutionText.setText(sb.toString());
 
         } else {
             Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
 
-            if (!(answerlist.contains(inputQuestion.getText().charAt(0)))){
-                usedlist.add(inputQuestion.getText().charAt(0));
+            if (!(usedlist.contains(compareChar))){
+                usedlist.add(compareChar);
 
                 maxTries--;
 
-                if (maxTries<=0){
+                if (maxTries<0){
                     maxTries=0;
                     okButton.setEnabled(false);
-                }
-
-                switch(maxTries) {
-                    case 1:
-                        imageView.setImageResource(R.drawable.hangma_1);
-                        break;
-                    case 2:
-                        imageView.setImageResource(R.drawable.hangma_2);
-                        break;
-                    case 3:
-                        imageView.setImageResource(R.drawable.hangma_3);
-                        break;
-                    case 4:
-                        imageView.setImageResource(R.drawable.hangma_3);
-                        break;
-                    default:
-                        imageView.setImageResource(R.drawable.hangma_0);
+                } else {
+                    switch(maxTries) {
+                        case 1:
+                            imageView.setImageResource(R.drawable.hangma_1);
+                            break;
+                        case 2:
+                            imageView.setImageResource(R.drawable.hangma_2);
+                            break;
+                        case 3:
+                            imageView.setImageResource(R.drawable.hangma_3);
+                            break;
+                        case 4:
+                            imageView.setImageResource(R.drawable.hangma_3);
+                            break;
+                        default:
+                            imageView.setImageResource(R.drawable.hangma_0);
+                    }
                 }
             }
-
         }
-
     }
 
     public void hangmanController(char[] answerChar){
