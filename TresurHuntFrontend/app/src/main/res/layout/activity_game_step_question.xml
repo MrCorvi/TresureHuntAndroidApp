@@ -26,6 +26,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
 
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="115dp"
+        android:text="@string/question_help"
+        android:textAlignment="center"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,16 +50,12 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
+            android:layout_height="200dp"
             android:background="@drawable/border"
             android:layout_centerInParent="true"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             />
-
-        <ImageView
-
-            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/questionText"
