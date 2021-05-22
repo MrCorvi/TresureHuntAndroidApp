@@ -272,6 +272,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO Camera and MKL Kit Controller
             gameCameraButtonClick();
         }else{
+            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
+
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
             //devo inizializzare la location relativa al prossimo step
             Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
@@ -362,15 +364,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        //decrease hint counter
-        hints--;
-        System.out.println(hints);
-
         if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
             // Hangman Activity
             hangmanButtonClick();
         }else{
+            //decrease hint counter
+            hints--;
+
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
             if (hintStep <= currentStep){

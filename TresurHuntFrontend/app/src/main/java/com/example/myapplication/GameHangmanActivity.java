@@ -59,12 +59,11 @@ public class GameHangmanActivity extends AppCompatActivity {
     }
 
     public void onHintClick(View v) {
-        if (hints <= 0){
+        if (hints < 0){
             // imageView.setImageResource(R.drawable.hangma_0);
             hintButton.setEnabled(false);
             Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
         } else {
-            hints--;
             for(char c : answerlist){
                 if(!usedlist.contains(c)){
                     checkChar(c);
@@ -72,10 +71,12 @@ public class GameHangmanActivity extends AppCompatActivity {
                 }
             }
         }
+        hints--;
     }
 
     public void onOkClick(View view) {
-        checkChar(inputQuestion.getText().charAt(0));
+        checkChar(Character.toLowerCase(inputQuestion.getText().charAt(0)));
+        inputQuestion.setText("");
     }
 
     public void checkChar(char compareChar) {
@@ -91,15 +92,13 @@ public class GameHangmanActivity extends AppCompatActivity {
 
         } else {
             Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+            maxTries--;
 
             if (!(usedlist.contains(compareChar))){
                 usedlist.add(compareChar);
-
-                maxTries--;
-
-                if (maxTries<0){
-                    maxTries=0;
+                if (maxTries<=0){
                     okButton.setEnabled(false);
+                    imageView.setImageResource(R.drawable.hangma_0);
                 } else {
                     switch(maxTries) {
                         case 1:
@@ -112,7 +111,10 @@ public class GameHangmanActivity extends AppCompatActivity {
                             imageView.setImageResource(R.drawable.hangma_3);
                             break;
                         case 4:
-                            imageView.setImageResource(R.drawable.hangma_3);
+                            imageView.setImageResource(R.drawable.hangma_4);
+                            break;
+                        case 5:
+                            imageView.setImageResource(R.drawable.hangma_5);
                             break;
                         default:
                             imageView.setImageResource(R.drawable.hangma_0);

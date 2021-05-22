@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 tools:ignore="LabelFor"
                 android:maxLength="1"
-                android:digits="abcdefghijklmnopqrstuvwxyz" />
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" />
 
             <Button
                 android:id="@+id/okButton"
