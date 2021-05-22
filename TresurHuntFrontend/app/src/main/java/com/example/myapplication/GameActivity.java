@@ -25,6 +25,7 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -102,6 +103,9 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
+
+        ImageButton joinButton = (ImageButton) findViewById(R.id.mapButton);
+        joinButton.setEnabled(false);
 
         //get the id of the selected game
         Intent intent = getIntent();
@@ -237,8 +241,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         return cl_circle;
     }
 
-    public LatLng addNoiseToCoordinates(LatLng c, int r)
-    {
+    public LatLng addNoiseToCoordinates(LatLng c, int r) {
 
         Double x =  (- r + ( random() * (2*r)));//new latitude
         Double y_range = sqrt(Math.pow(r,2)-Math.pow(x,2));
@@ -329,7 +332,13 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void listStepsClick(View view){
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(GameActivity.this, ListViewActivity.class);
-        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepList);
+
+        List<Step> stepsDone = new ArrayList<Step>();
+        for(int i=0; i<=currentStep; i++){
+            Step step = stepList.get(i);
+            stepsDone.add(step);
+        }
+        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepsDone);
         startActivity(intent);
     }
 

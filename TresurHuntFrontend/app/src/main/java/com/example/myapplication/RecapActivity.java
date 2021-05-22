@@ -57,8 +57,6 @@ public class RecapActivity extends AppCompatActivity {
         GlobalClass globalClass = (GlobalClass) getApplicationContext();
         backEndURL = globalClass.getBackEndURL();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         queue = Volley.newRequestQueue(this);
 
         list = new ArrayList<String>();

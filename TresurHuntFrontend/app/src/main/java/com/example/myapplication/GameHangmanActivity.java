@@ -6,16 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class GameHangmanActivity extends AppCompatActivity {
 
-    private TextView titleText, solutionText, lineText, questionText;
+    private TextView titleText, solutionText;
     private ImageView imageView;
     private Button hintButton;
+    private EditText inputQuestion;
+
     private int hints;
+    private int maxTries = 5;
+
+    List<Character> answerlist;
+    char[] answerChar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,28 +39,26 @@ public class GameHangmanActivity extends AppCompatActivity {
 
         //Get the id of the selected game
         Intent intent = getIntent();
-        String answer = intent.getStringExtra("answer");
+        String answer = (intent.getStringExtra("answer")).toLowerCase();
         hints = intent.getIntExtra("hints", 3);
 
         // Init Graph variables
         titleText = (TextView) findViewById(R.id.titleText);
         solutionText = (TextView) findViewById(R.id.solutionText);
-        lineText = (TextView) findViewById(R.id.lineText);
 
+        inputQuestion = (EditText) findViewById(R.id.inputQuestion);
         imageView = (ImageView) findViewById(R.id.imageView);
         hintButton = (Button) findViewById(R.id.hintButton);
 
-        char[] ch = answer.toCharArray();
-        // Printing array
-        for (char c : ch) {
-            System.out.println(c);
-        }
+        answerChar = answer.toCharArray();
+        hangmanController(answerChar);
+
     }
 
     public void onHintClick(View v) {
         hints--;
         if (hints <= 0){
-            imageView.setImageResource(R.drawable.hangma_0);
+            // imageView.setImageResource(R.drawable.hangma_0);
             hintButton.setEnabled(false);
             Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
         } else {
@@ -68,9 +78,33 @@ public class GameHangmanActivity extends AppCompatActivity {
         }
     }
 
+    public void onOkClick(View view) {
+        String hangmanText = solutionText.getText().toString();
+        StringBuilder sb = new StringBuilder(solutionText.getText().toString());
+        String nameImageView;
 
-    public void toastAlert(String message){
+        if (answerlist.contains(inputQuestion.getText().charAt(0))){
+            System.out.println(hangmanText);
+            for(int i=0; i<answerlist.size(); i++) {
+                if (answerlist.get(i) == inputQuestion.getText().charAt(0)) {
+                    sb.setCharAt(2*i, inputQuestion.getText().charAt(0));
+                }
+            }
+            solutionText.setText(sb.toString());
 
+        } else {
+            Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+            nameImageView = "hangman_";
+        }
+
+    }
+
+    public void hangmanController(char[] answerChar){
+        answerlist = new ArrayList<Character>();
+        for (char c : answerChar) {
+            answerlist.add(c);
+            solutionText.setText(solutionText.getText() + "_ ");
+        }
     }
 
 }
