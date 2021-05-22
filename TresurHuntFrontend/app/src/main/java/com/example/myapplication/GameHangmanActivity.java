@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 public class GameHangmanActivity extends AppCompatActivity {
 
-    private final String alertHintsError = getString(R.string.no_hint_message);
     private TextView titleText, solutionText, lineText, questionText;
     private ImageView imageView;
     private Button hintButton;
@@ -22,6 +21,9 @@ public class GameHangmanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_hangman);
+
+        // Alert Message No more Hints
+        final String alertHintsError = getString(R.string.no_hint_message);
 
         //Get the id of the selected game
         Intent intent = getIntent();
@@ -41,42 +43,34 @@ public class GameHangmanActivity extends AppCompatActivity {
         for (char c : ch) {
             System.out.println(c);
         }
+    }
 
-        hintButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hints--;
-                if (hints <= 0){
-                    imageView.setImageResource(R.drawable.hangma_0);
-                    hintButton.setEnabled(false);
-                    toastAlert(alertHintsError);
-                } else {
-                    showHint();
-                    switch(hints) {
-                        case 1:
-                            imageView.setImageResource(R.drawable.hangma_1);
-                            break;
-                        case 2:
-                            imageView.setImageResource(R.drawable.hangma_2);
-                            break;
-                        case 3:
-                            imageView.setImageResource(R.drawable.hangma_3);
-                            break;
-                        default:
-                            imageView.setImageResource(R.drawable.hangma_3);
-                    }
-                }
+    public void onHintClick(View v) {
+        hints--;
+        if (hints <= 0){
+            imageView.setImageResource(R.drawable.hangma_0);
+            hintButton.setEnabled(false);
+            Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
+        } else {
+            switch(hints) {
+                case 1:
+                    imageView.setImageResource(R.drawable.hangma_1);
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.hangma_2);
+                    break;
+                case 3:
+                    imageView.setImageResource(R.drawable.hangma_3);
+                    break;
+                default:
+                    imageView.setImageResource(R.drawable.hangma_3);
             }
-        });
+        }
     }
 
-    public void showHint(){
-
-
-    }
 
     public void toastAlert(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+
     }
 
 }

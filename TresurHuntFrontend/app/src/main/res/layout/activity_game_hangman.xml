@@ -87,6 +87,7 @@
             android:layout_width="350dp"
             android:layout_height="100dp"
             android:background="@drawable/press_btn"
+            android:onClick="onHintClick"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/beige"/>
