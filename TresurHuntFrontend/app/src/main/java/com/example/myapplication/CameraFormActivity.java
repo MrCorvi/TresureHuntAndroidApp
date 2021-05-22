@@ -20,12 +20,32 @@ public class CameraFormActivity extends AppCompatActivity {
     private EditText questionDisplay;
     private ListView listView;
     private String [] list = {
-            "Flower",
-            "Butterfly",
-            "Pisa Merda",
-            "Statue",
-            "Fountain",
-            "Ball"
+            "Bicycle",
+            "Bird",
+            "Bridle",
+            "Car",
+            "Cat",
+            "Chair",
+            "Church",
+            "Cycling",
+            "Flag",
+            "Forest",
+            "Insect",
+            "Moon",
+            "Motorcycle",
+            "Lake",
+            "Lighthouse",
+            "Palace",
+            "Petal",
+            "Pool",
+            "River",
+            "Road",
+            "School",
+            "Sky",
+            "Smile",
+            "Stairs",
+            "Tower",
+            "Train"
     };
     private boolean selected;
     private int pos;
