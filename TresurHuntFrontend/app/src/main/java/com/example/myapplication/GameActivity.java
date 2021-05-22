@@ -159,7 +159,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for(int i=0;i<stepList.size();i++){
                                 if (stepList.get(i).isPositionQuestion)
                                     hintList.add(hintLoader(i));
-
                             }
 
                         } catch (JSONException e) {
@@ -227,8 +226,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .strokeColor(Color.RED)
                 .fillColor(Color.argb(70,150,50,50));
         return cl_circle;
-
-
     }
 
     public LatLng addNoiseToCoordinates(LatLng c, int r)
@@ -346,7 +343,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
-            // TODO Marsha: chiama ;'activity dell'impiccato
+            // Hangman Activity
+            hangmanButtonClick();
         }else{
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
@@ -362,6 +360,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
 
+    }
+
+    private void hangmanButtonClick(){
+        // Open GameCameraActivity
+        Intent intent = new Intent(GameActivity.this, GameHangmanActivity.class);
+        intent.putExtra("answer", stepList.get(currentStep).answer);
+        intent.putExtra("hints", hints);
+        startActivity(intent);
     }
 
     private void gameCameraButtonClick(){
