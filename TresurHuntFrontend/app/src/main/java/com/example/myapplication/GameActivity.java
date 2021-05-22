@@ -13,7 +13,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -52,6 +54,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Math.random;
 import static java.lang.Math.sqrt;
@@ -295,7 +298,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             //segnala graficamente la meta raggiunta
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(latlng[0],latlng[1]))
-                    .title("STEP COMPLETO")
+                    .title(makeTargetLocationTitle(latlng[0],latlng[1]))
                     .snippet("STEP:"+ (currentStep+1))
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             currentStep++;
@@ -506,5 +509,27 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                 stepController(Boolean.parseBoolean(returnedResult));
             }
         }
+    }
+
+    public String makeTargetLocationTitle(double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+            } else {
+                strAdd = "Unknown place";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strAdd;
     }
 }
