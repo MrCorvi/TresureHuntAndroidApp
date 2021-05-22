@@ -36,16 +36,42 @@ public class GameHangmanActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
         hintButton = (Button) findViewById(R.id.hintButton);
 
+        char[] ch = answer.toCharArray();
+        // Printing array
+        for (char c : ch) {
+            System.out.println(c);
+        }
+
         hintButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hints--;
                 if (hints <= 0){
+                    imageView.setImageResource(R.drawable.hangma_0);
                     hintButton.setEnabled(false);
                     toastAlert(alertHintsError);
+                } else {
+                    showHint();
+                    switch(hints) {
+                        case 1:
+                            imageView.setImageResource(R.drawable.hangma_1);
+                            break;
+                        case 2:
+                            imageView.setImageResource(R.drawable.hangma_2);
+                            break;
+                        case 3:
+                            imageView.setImageResource(R.drawable.hangma_3);
+                            break;
+                        default:
+                            imageView.setImageResource(R.drawable.hangma_3);
+                    }
                 }
             }
         });
+    }
+
+    public void showHint(){
+
 
     }
 

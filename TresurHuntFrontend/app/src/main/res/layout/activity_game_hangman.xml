@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="@+id/button3"
             app:layout_constraintStart_toStartOf="@+id/button3"
             tools:layout_editor_absoluteY="318dp"
-            tools:srcCompat="@drawable/hangma_1" />
+            tools:srcCompat="@drawable/hangma_3" />
 
         <TextView
             android:id="@+id/questionText"
