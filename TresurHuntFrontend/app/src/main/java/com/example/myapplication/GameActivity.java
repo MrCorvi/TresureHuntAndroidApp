@@ -13,7 +13,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +25,7 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +55,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static java.lang.Math.random;
 import static java.lang.Math.sqrt;
@@ -98,6 +102,9 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.game_action_bar);
+
+        ImageButton joinButton = (ImageButton) findViewById(R.id.mapButton);
+        joinButton.setEnabled(false);
 
         //get the id of the selected game
         Intent intent = getIntent();
@@ -233,8 +240,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         return cl_circle;
     }
 
-    public LatLng addNoiseToCoordinates(LatLng c, int r)
-    {
+    public LatLng addNoiseToCoordinates(LatLng c, int r) {
 
         Double x =  (- r + ( random() * (2*r)));//new latitude
         Double y_range = sqrt(Math.pow(r,2)-Math.pow(x,2));
@@ -295,7 +301,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             //segnala graficamente la meta raggiunta
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(latlng[0],latlng[1]))
-                    .title("STEP COMPLETO")
+                    .title(makeTargetLocationTitle(latlng[0],latlng[1]))
                     .snippet("STEP:"+ (currentStep+1))
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
             currentStep++;
@@ -325,7 +331,13 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void listStepsClick(View view){
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(GameActivity.this, ListViewActivity.class);
-        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepList);
+
+        List<Step> stepsDone = new ArrayList<Step>();
+        for(int i=0; i<=currentStep; i++){
+            Step step = stepList.get(i);
+            stepsDone.add(step);
+        }
+        intent.putParcelableArrayListExtra("steps", (ArrayList<? extends Parcelable>) stepsDone);
         startActivity(intent);
     }
 
@@ -506,5 +518,27 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                 stepController(Boolean.parseBoolean(returnedResult));
             }
         }
+    }
+
+    public String makeTargetLocationTitle(double LATITUDE, double LONGITUDE) {
+        String strAdd = "";
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                StringBuilder strReturnedAddress = new StringBuilder("");
+
+                for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                    strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                }
+                strAdd = strReturnedAddress.toString();
+            } else {
+                strAdd = "Unknown place";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strAdd;
     }
 }
