@@ -78,7 +78,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static final int INIT_REQUEST_CODE = 777;
     private MarkerOptions mo;
     private Marker pos_marker;
-    private final int radius = 2000;
+    private final int radius = 500;
     private LocationManager locationManager;
     private Location CurrentLocation;
     final static int PERMISSION_ALL = 1;
@@ -284,10 +284,12 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // Control the number of the step
     public void stepController(Boolean success){
+        Step c_step = stepList.get(currentStep);
+        Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
         //if success, next step
         if(success){
             //annuncia successo del task
-            Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Complimenti, hai superato questo step!" , Toast.LENGTH_LONG).show();
             //segnala graficamente la meta raggiunta
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(latlng[0],latlng[1]))

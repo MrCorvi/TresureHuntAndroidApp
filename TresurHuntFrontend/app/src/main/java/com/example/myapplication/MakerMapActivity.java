@@ -33,10 +33,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -87,6 +88,14 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
             requestPermissions(PERMISSIONS, PERMISSION_ALL);
         } else {
+            // Initialize the SDK
+
+            String api_key = "AIzaSyB2tGjQcDtCAJtWBsMoF2MnC1wc-05ERJA";
+            Places.initialize(getApplicationContext(),api_key);
+
+            // Create a new PlacesClient instance
+            PlacesClient placesClient = Places.createClient(this);
+
             //Criteria set parameters to access location service
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -147,11 +156,11 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
                 game.getQuestions().add(data.getStringExtra("question"));
                 game.getStepTypes().add(Boolean.TRUE);
                 //find current address
-                String location_title = makeTargetLocationTitle(CurrentLocation);
+                String location_title = makeTargetLocationTitle(CurrentLocation.latitude,CurrentLocation.longitude);
                 //update map adding a marker on new step position
                 mMap.addMarker(new MarkerOptions()
                         .position(CurrentLocation)
-                        .title(CurrentLocation.toString())
+                        .title(location_title)
                         .snippet("STEP:"+ game.getSize())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
@@ -269,22 +278,26 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    public String makeTargetLocationTitle(LatLng location) {
 
-        //List<Address> addresses = new ArrayList<>();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(PERMISSIONS, PERMISSION_ALL);
-            /*
-            addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
-            String address = addresses.get(0).getLocality();
-            //String address = addresses.get(0).getAddressLine(0);
-            */
-            String Title = Place.builder().getAddress();
-            return Title;
+
+        private String makeTargetLocationTitle(double LATITUDE, double LONGITUDE) {
+            String strAdd = "";
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            try {
+                List<Address> addresses = geocoder.getFromLocation(LATITUDE, LONGITUDE, 1);
+                if (addresses != null) {
+                    Address returnedAddress = addresses.get(0);
+                    StringBuilder strReturnedAddress = new StringBuilder("");
+
+                    for (int i = 0; i <= returnedAddress.getMaxAddressLineIndex(); i++) {
+                        strReturnedAddress.append(returnedAddress.getAddressLine(i)).append("\n");
+                    }
+                    strAdd = strReturnedAddress.toString();
+                } else {
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return strAdd;
         }
-        return "";
-
-
-    }
-
 }

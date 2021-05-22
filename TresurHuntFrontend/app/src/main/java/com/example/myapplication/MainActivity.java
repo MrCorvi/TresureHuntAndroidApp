@@ -9,13 +9,11 @@ import android.widget.Button;
 
 import com.example.myapplication.models.GlobalClass;
 
-import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button joinBut, makeBut;
-    static PlacesClient placesClient;
+    //static PlacesClient placesClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         joinBut = findViewById(R.id.joinButton);
         makeBut = findViewById(R.id.makeButton);
-<<<<<<< HEAD
 
-        // Initialize the SDK
-        String api_key = "AIzaSyBEk5dFEO0cyysrpoOVZiyzFVL-KzNehJI";
-        Places.initialize(getApplicationContext(),api_key);
 
-        // Create a new PlacesClient instance
-        placesClient = Places.createClient(this);
-
-=======
->>>>>>> 33bb6fe3a3c00cfe1883fcd35a221af0b8ab1cbd
     }
 
 
