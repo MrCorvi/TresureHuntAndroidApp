@@ -3,10 +3,13 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +39,8 @@ public class GameCameraActivity extends AppCompatActivity {
     private TextView descriptionText;
     private Button confirmButton;
     private ImageView imageView;
+    final static String CAMERA_PERMISSION = android.Manifest.permission.CAMERA;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
