@@ -56,7 +56,7 @@ public class CameraFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_form);
 
         alertMessageQuesiton = getString(R.string.choose_question);
-        alertMessageAnswer = getString(R.string.choose_answer)
+        alertMessageAnswer = getString(R.string.choose_answer);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
