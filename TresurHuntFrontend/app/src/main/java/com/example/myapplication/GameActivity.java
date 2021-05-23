@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private boolean f_up_pos;
     public static final int INIT_REQUEST_CODE = 777;
     private MarkerOptions mo;
-    private Marker pos_marker;
+    private Marker pos_marker = null;
     private final int radius = 500;
     private LocationManager locationManager;
     private Location CurrentLocation;
@@ -494,6 +494,9 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if(pos_marker != null){
+            pos_marker.remove();
+        }
         pos_marker = mMap.addMarker(mo);
         //zoom sul cursore
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
