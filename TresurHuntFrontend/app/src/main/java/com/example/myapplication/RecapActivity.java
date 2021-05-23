@@ -38,7 +38,7 @@ import java.util.Locale;
 public class RecapActivity extends AppCompatActivity {
 
     private String backEndURL;
-    private final String alertMessage = getString(R.string.min_length);
+    private String alertMessage;
 
     private GameInfo game;
     private RequestQueue queue;
@@ -53,6 +53,8 @@ public class RecapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
+
+        alertMessage = getString(R.string.min_length);
 
         // Get Global Params
         GlobalClass globalClass = (GlobalClass) getApplicationContext();

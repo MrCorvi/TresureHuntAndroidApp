@@ -62,7 +62,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     private int LAUNCH_CAMERA = 2;
     private int LAUNCH_RECAP = 3;
     private final int MIN_STEP = 2;
-    private final String alertMessage = getString(R.string.add_step);
+    private String alertMessage;
 
     private GameInfo game;
 
@@ -82,6 +82,8 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maker_map);
+        
+        alertMessage = getString(R.string.add_step);
         Intent i = getIntent();
         game = new GameInfo(i.getStringExtra("gameName"));
         //mapFragment allows to manage map fragment retrieved

@@ -8,16 +8,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class FormMakerActivity extends AppCompatActivity {
 
     private EditText gameDisplay;
-    private final String alertMessage = getString(R.string.choose_name);
+    private  String alertMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_maker);
 
+        alertMessage = getString(R.string.choose_name);
         gameDisplay =findViewById(R.id.inputName);
         gameDisplay.setOnClickListener(new View.OnClickListener() {
             @Override

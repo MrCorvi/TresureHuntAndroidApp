@@ -13,13 +13,14 @@ import android.widget.Toast;
 public class PlaceFormActivity extends AppCompatActivity {
 
     private EditText questionDisplay;
-    private final String alertMessage = getString(R.string.answer_display);
+    private String alertMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_form);
 
+        alertMessage = getString(R.string.answer_display);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         questionDisplay =findViewById(R.id.inputQuestion);
