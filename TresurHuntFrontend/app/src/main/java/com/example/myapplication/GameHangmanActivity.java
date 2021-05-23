@@ -19,13 +19,15 @@ public class GameHangmanActivity extends AppCompatActivity {
 
     private TextView titleText, solutionText;
     private ImageView imageView;
-    private Button hintButton;
+    private Button hintButton, okButton;
     private EditText inputQuestion;
 
     private int hints;
     private int maxTries = 5;
 
     List<Character> answerlist;
+    List<Character> usedlist = new ArrayList<Character>();
+
     char[] answerChar;
 
 
@@ -49,54 +51,77 @@ public class GameHangmanActivity extends AppCompatActivity {
         inputQuestion = (EditText) findViewById(R.id.inputQuestion);
         imageView = (ImageView) findViewById(R.id.imageView);
         hintButton = (Button) findViewById(R.id.hintButton);
+        okButton = (Button) findViewById(R.id.okButton);
 
         answerChar = answer.toCharArray();
         hangmanController(answerChar);
-
+        imageView.setImageResource(R.drawable.hangma_5);
     }
 
     public void onHintClick(View v) {
-        hints--;
-        if (hints <= 0){
+        if (hints < 0){
             // imageView.setImageResource(R.drawable.hangma_0);
             hintButton.setEnabled(false);
             Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
         } else {
-            switch(hints) {
-                case 1:
-                    imageView.setImageResource(R.drawable.hangma_1);
+            for(char c : answerlist){
+                if(!usedlist.contains(c)){
+                    checkChar(c);
                     break;
-                case 2:
-                    imageView.setImageResource(R.drawable.hangma_2);
-                    break;
-                case 3:
-                    imageView.setImageResource(R.drawable.hangma_3);
-                    break;
-                default:
-                    imageView.setImageResource(R.drawable.hangma_3);
+                }
             }
         }
+        hints--;
     }
 
     public void onOkClick(View view) {
-        String hangmanText = solutionText.getText().toString();
-        StringBuilder sb = new StringBuilder(solutionText.getText().toString());
-        String nameImageView;
+        checkChar(Character.toLowerCase(inputQuestion.getText().charAt(0)));
+        inputQuestion.setText("");
+    }
 
-        if (answerlist.contains(inputQuestion.getText().charAt(0))){
-            System.out.println(hangmanText);
+    public void checkChar(char compareChar) {
+        StringBuilder sb = new StringBuilder(solutionText.getText().toString());
+        if (answerlist.contains(compareChar)){
             for(int i=0; i<answerlist.size(); i++) {
-                if (answerlist.get(i) == inputQuestion.getText().charAt(0)) {
-                    sb.setCharAt(2*i, inputQuestion.getText().charAt(0));
+                if (answerlist.get(i) == compareChar) {
+                    sb.setCharAt(2*i, compareChar);
                 }
             }
+            usedlist.add(compareChar);
             solutionText.setText(sb.toString());
 
         } else {
             Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
-            nameImageView = "hangman_";
-        }
+            maxTries--;
 
+            if (!(usedlist.contains(compareChar))){
+                usedlist.add(compareChar);
+                if (maxTries<=0){
+                    okButton.setEnabled(false);
+                    imageView.setImageResource(R.drawable.hangma_0);
+                } else {
+                    switch(maxTries) {
+                        case 1:
+                            imageView.setImageResource(R.drawable.hangma_1);
+                            break;
+                        case 2:
+                            imageView.setImageResource(R.drawable.hangma_2);
+                            break;
+                        case 3:
+                            imageView.setImageResource(R.drawable.hangma_3);
+                            break;
+                        case 4:
+                            imageView.setImageResource(R.drawable.hangma_4);
+                            break;
+                        case 5:
+                            imageView.setImageResource(R.drawable.hangma_5);
+                            break;
+                        default:
+                            imageView.setImageResource(R.drawable.hangma_0);
+                    }
+                }
+            }
+        }
     }
 
     public void hangmanController(char[] answerChar){
@@ -106,5 +131,4 @@ public class GameHangmanActivity extends AppCompatActivity {
             solutionText.setText(solutionText.getText() + "_ ");
         }
     }
-
 }

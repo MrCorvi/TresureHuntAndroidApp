@@ -19,6 +19,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -271,11 +272,12 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         boolean success = false;
         Step c_step = stepList.get(currentStep);
 
-        System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
             // TODO Camera and MKL Kit Controller
             gameCameraButtonClick();
         }else{
+            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
+
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
             //devo inizializzare la location relativa al prossimo step
             Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
@@ -328,6 +330,25 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    // Control the number of the step
+    public void stepCountCamera(Boolean success){
+        // Control the number of the step
+        //if success, next step
+        if(success){
+            //annuncia successo del task
+            Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_LONG).show();
+            currentStep++;
+            setTopBarCounters();
+        }
+
+        //Send to victory activity if it was last step
+        if(currentStep >= stepList.size()){
+            Intent intent = new Intent(GameActivity.this, SuccessActivity.class);
+            intent.putExtra("hintUsed", maxHints - hints);
+            startActivity(intent);
+        }
+    }
+
     public static Double[] getCoordinatesFromLocationString(String loc){
         System.out.println(loc);
         loc = loc.split("\\(")[1];
@@ -367,15 +388,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
 
-        //decrease hint counter
-        hints--;
-        System.out.println(hints);
-
         if(!stepList.get(currentStep).isPositionQuestion){
             imageHintsUsed++;
             // Hangman Activity
             hangmanButtonClick();
         }else{
+            //decrease hint counter
+            hints--;
+
             // TODO Gianmarco deve far diminuire il raggio della mappa
             //verifico l'aiuto non sia già stato utilizzato
             if (hintStep <= currentStep){
@@ -529,7 +549,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 String returnedResult = data.getData().toString();
-                stepController(Boolean.parseBoolean(returnedResult));
+                stepCountCamera(Boolean.parseBoolean(returnedResult));
             }
         }
     }

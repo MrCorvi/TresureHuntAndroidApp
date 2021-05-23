@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Tresure Hunt</string>
     <string name="joinTitle">Join Game</string>
     <string name="app_label">Treasure Hunt</string>
     <string name="joinSubmitGameButton">Join Game</string>
@@ -63,5 +62,5 @@
         <string name="back_end_url">http://echo.jsontest.com/title/ipsum/content/blah</string>
         <string name="back_end_url">http://localhost:8080</string>
     -->
-    <string name="back_end_url">http://192.168.1.9:8080</string>
+    <string name="back_end_url">http://172.100.10.243:8080</string>
 </resources>
