@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.myapplication.adapters.RecycleAdapter;
+import com.example.myapplication.models.GameInfo;
 import com.example.myapplication.models.GlobalClass;
 
 import org.json.JSONException;
@@ -37,9 +38,9 @@ import java.util.Locale;
 public class RecapActivity extends AppCompatActivity {
 
     private String backEndURL;
-    private final String alertMessage = "Min length achieved";
+    private final String alertMessage = getString(R.string.min_length);
 
-    private Game game;
+    private GameInfo game;
     private RequestQueue queue;
     private String requestBody = "ciao";
 
@@ -70,7 +71,7 @@ public class RecapActivity extends AppCompatActivity {
         ArrayList<String> a= (ArrayList<String>) args_a.getSerializable("ARRAYLIST");
         ArrayList<Boolean> s = (ArrayList<Boolean>) args_s.getSerializable("ARRAYLIST");
 
-        game = new Game(gameName, q,a,s);
+        game = new GameInfo(gameName, q,a,s);
 
         for(int i=0; i<game.getSize(); i++){
             Boolean cst_isplace = game.getStepTypes().get(i);

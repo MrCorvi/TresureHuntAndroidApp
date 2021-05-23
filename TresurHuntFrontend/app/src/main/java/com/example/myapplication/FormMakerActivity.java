@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class FormMakerActivity extends AppCompatActivity {
 
     private EditText gameDisplay;
-    private final String alertMessage = "Choose an name";
+    private final String alertMessage = getString(R.string.choose_name);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class PlaceFormActivity extends AppCompatActivity {
 
     private EditText questionDisplay;
-    private final String alertMessage = "Enter an answer";
+    private final String alertMessage = getString(R.string.answer_display);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
