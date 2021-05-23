@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class GameHangmanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         setContentView(R.layout.activity_game_hangman);
 
         // Alert Message No more Hints
@@ -43,6 +45,9 @@ public class GameHangmanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String answer = (intent.getStringExtra("answer")).toLowerCase();
         hints = intent.getIntExtra("hints", 3);
+        maxTries = intent.getIntExtra("maxTries", 5);
+        Bundle args_s = intent.getBundleExtra("usedlist");
+        usedlist = (ArrayList<Character>) args_s.getSerializable("ARRAYLIST");
 
         // Init Graph variables
         titleText = (TextView) findViewById(R.id.titleText);
@@ -56,6 +61,9 @@ public class GameHangmanActivity extends AppCompatActivity {
         answerChar = answer.toCharArray();
         hangmanController(answerChar);
         imageView.setImageResource(R.drawable.hangma_5);
+
+        if (hints == 0) {hintButton.setEnabled(false);}
+        onCreateHangman();
     }
 
     public void onHintClick(View v) {
@@ -102,27 +110,31 @@ public class GameHangmanActivity extends AppCompatActivity {
                     okButton.setEnabled(false);
                     imageView.setImageResource(R.drawable.hangma_0);
                 } else {
-                    switch(maxTries) {
-                        case 1:
-                            imageView.setImageResource(R.drawable.hangma_1);
-                            break;
-                        case 2:
-                            imageView.setImageResource(R.drawable.hangma_2);
-                            break;
-                        case 3:
-                            imageView.setImageResource(R.drawable.hangma_3);
-                            break;
-                        case 4:
-                            imageView.setImageResource(R.drawable.hangma_4);
-                            break;
-                        case 5:
-                            imageView.setImageResource(R.drawable.hangma_5);
-                            break;
-                        default:
-                            imageView.setImageResource(R.drawable.hangma_0);
-                    }
+                    putImageHangman(maxTries);
                 }
             }
+        }
+    }
+
+    public void putImageHangman(int option){
+        switch(option) {
+            case 1:
+                imageView.setImageResource(R.drawable.hangma_1);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.hangma_2);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.hangma_3);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.hangma_4);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.hangma_5);
+                break;
+            default:
+                imageView.setImageResource(R.drawable.hangma_0);
         }
     }
 
@@ -133,4 +145,34 @@ public class GameHangmanActivity extends AppCompatActivity {
             solutionText.setText(solutionText.getText() + "_ ");
         }
     }
+
+    public void onCreateHangman(){
+        for(char c : answerlist){
+            if(usedlist.contains(c)){
+                checkChar(c);
+            }
+        }
+
+        putImageHangman(maxTries);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(GameHangmanActivity.this, GameActivity.class);
+
+        Bundle args_s = new Bundle();
+        args_s.putSerializable("ARRAYLIST",(Serializable)usedlist);
+
+        intent.putExtra("usedlist",args_s);
+        intent.putExtra("hints",hints);
+        intent.putExtra("maxTries", maxTries);
+
+        setResult(RESULT_OK, intent);
+
+        super.onBackPressed();
+
+        // finish();
+
+    }
+
 }
