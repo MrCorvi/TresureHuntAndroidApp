@@ -276,8 +276,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             // TODO Camera and MKL Kit Controller
             gameCameraButtonClick();
         }else{
-            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
-
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
             //devo inizializzare la location relativa al prossimo step
             Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
@@ -307,17 +305,19 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     // Control the number of the step
     public void stepController(Boolean success){
         Step c_step = stepList.get(currentStep);
-        Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
         //if success, next step
         if(success){
             //annuncia successo del task
             Toast.makeText(this, "Complimenti, hai superato questo step!" , Toast.LENGTH_LONG).show();
             //segnala graficamente la meta raggiunta
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(latlng[0],latlng[1]))
-                    .title(makeTargetLocationTitle(latlng[0],latlng[1]))
-                    .snippet("STEP:"+ (currentStep+1))
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            if(stepList.get(currentStep).isPositionQuestion){
+                Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(latlng[0],latlng[1]))
+                        .title(makeTargetLocationTitle(latlng[0],latlng[1]))
+                        .snippet("STEP:"+ (currentStep+1))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            }
             currentStep++;
             setTopBarCounters();
         }
