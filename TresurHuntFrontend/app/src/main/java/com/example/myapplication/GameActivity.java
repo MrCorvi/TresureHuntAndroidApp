@@ -383,7 +383,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void hintClick(View view){
-        if(hints <= 0){
+        if ((hints <= 0) && (stepList.get(currentStep).isPositionQuestion)) {
             return;
         }
 

@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 public class CameraFormActivity extends AppCompatActivity {
 
-    private final String alertMessageQuesiton = getString(R.string.choose_question);
-    private final String alertMessageAnswer = getString(R.string.choose_answer);
+    private String alertMessageQuesiton;
+    private String alertMessageAnswer;
 
     private EditText questionDisplay;
     private ListView listView;
@@ -54,6 +54,9 @@ public class CameraFormActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_form);
+
+        alertMessageQuesiton = getString(R.string.choose_question);
+        alertMessageAnswer = getString(R.string.choose_answer)
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
