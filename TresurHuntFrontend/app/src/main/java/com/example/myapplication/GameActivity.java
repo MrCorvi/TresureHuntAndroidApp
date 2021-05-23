@@ -343,6 +343,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             //annuncia successo del task
             Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_LONG).show();
             currentStep++;
+            usedlist.clear();
+            maxTries = 5;
             setTopBarCounters();
         }
 

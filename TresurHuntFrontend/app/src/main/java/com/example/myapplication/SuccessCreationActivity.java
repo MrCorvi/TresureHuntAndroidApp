@@ -17,7 +17,7 @@ public class SuccessCreationActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int gameName = intent.getIntExtra("gameId",-1);
 
-        TextView tmp =  (TextView) findViewById(R.id.success_gameId); ;
+        TextView tmp =  (TextView) findViewById(R.id.success_gameId);
         tmp.setText(String.valueOf(gameName));
     }
 
