@@ -22,7 +22,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".SuccessActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" /> <!-- Indica che sara' la prima Activity ad essere visualizzata quando verra' aperta l'app -->
+            </intent-filter>
+        </activity> <!-- Va aggiunta questa parte ogni volta che si aggiunge una nuova Activity -->
+
         <activity
             android:name=".SearchGameActivity"
             android:parentActivityName=".MainActivity">
@@ -37,33 +44,6 @@
         <activity
             android:name=".GameActivity"
             android:parentActivityName=".SearchGameActivity" />
-        <activity android:name=".SuccessCreationActivity" />
-        <activity android:name=".RecapActivity" />
-        <activity android:name=".PlaceFormActivity" />
-        <activity android:name=".MakerMapActivity" />
-        <activity
-            android:name=".FormMakerActivity"
-            android:parentActivityName=".MainActivity" />
-
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" /> <!-- Indica che sara' la prima Activity ad essere visualizzata quando verra' aperta l'app -->
-            </intent-filter>
-        </activity> <!-- Va aggiunta questa parte ogni volta che si aggiunge una nuova Activity -->
-
-        <activity
-            android:name=".CameraFormActivity"
-            android:parentActivityName=".MakerMapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-
         <activity
             android:name=".ListViewActivity"
             android:parentActivityName=".GameActivity">
@@ -102,6 +82,27 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".FormMakerActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".CameraFormActivity"
+            android:parentActivityName=".MakerMapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".SuccessCreationActivity" />
+        <activity android:name=".RecapActivity" />
+        <activity android:name=".PlaceFormActivity" />
+        <activity android:name=".MakerMapActivity" />
+        <activity android:name=".SuccessActivity" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

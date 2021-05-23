@@ -131,5 +131,4 @@ public class GameHangmanActivity extends AppCompatActivity {
             solutionText.setText(solutionText.getText() + "_ ");
         }
     }
-
 }

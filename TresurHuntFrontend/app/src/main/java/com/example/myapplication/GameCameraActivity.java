@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -66,7 +67,7 @@ public class GameCameraActivity extends AppCompatActivity {
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
-            super.onBackPressed();
+            Toast.makeText(GameCameraActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -98,7 +99,7 @@ public class GameCameraActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         // Task failed with an exception
-                        // TODO manage failure
+                        Toast.makeText(GameCameraActivity.this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -116,36 +117,38 @@ public class GameCameraActivity extends AppCompatActivity {
             titleText.setText(R.string.found_image);
             descriptionText.setText(R.string.found_image_message);
             confirmButton.setText(R.string.continue_button);
-            success = true;
-            confirmButton.setOnClickListener(onConfirmButtonClick(success));
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onConfirmButtonClick(true);
+                    onBackPressed();
+                }
+            });
+                    //onConfirmButtonClick(success));
         } else {
             // On Failure
             titleText.setText(R.string.try_again);
             descriptionText.setText(R.string.try_again_message);
             confirmButton.setText(R.string.try_again);
-            success = false;
-            confirmButton.setOnClickListener(onConfirmButtonClick(success));
+            confirmButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onConfirmButtonClick(false);
+                    onBackPressed();
+                }
+            });
+                    //onConfirmButtonClick(success));
         }
 
     }
 
-    public View.OnClickListener onConfirmButtonClick(Boolean success) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent data = new Intent();
+    public void onConfirmButtonClick(Boolean success) {
+        Intent data = new Intent();
 
-                // Set the data to pass back
-                data.setData(Uri.parse(success.toString()));
-                setResult(RESULT_OK, data);
-
-                // Close the activity
-                finish();
-            }
-        };
+        // Set the data to pass back
+        data.setData(Uri.parse(success.toString()));
+        setResult(RESULT_OK, data);
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
@@ -155,14 +158,7 @@ public class GameCameraActivity extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             detectLabelFromImage(imageBitmap);
             imageView.setImageBitmap(imageBitmap);
-        } else {
-            super.onBackPressed();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }
 

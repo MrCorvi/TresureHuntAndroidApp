@@ -19,6 +19,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -266,8 +267,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         boolean success = false;
         Step c_step = stepList.get(currentStep);
 
-
-        System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
             // TODO Camera and MKL Kit Controller
             gameCameraButtonClick();
@@ -314,6 +313,25 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .title(makeTargetLocationTitle(latlng[0],latlng[1]))
                     .snippet("STEP:"+ (currentStep+1))
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+            currentStep++;
+            setTopBarCounters();
+        }
+
+        //Send to victory activity if it was last step
+        if(currentStep >= stepList.size()){
+            Intent intent = new Intent(GameActivity.this, SuccessActivity.class);
+            intent.putExtra("hintUsed", maxHints - hints);
+            startActivity(intent);
+        }
+    }
+
+    // Control the number of the step
+    public void stepCountCamera(Boolean success){
+        // Control the number of the step
+        //if success, next step
+        if(success){
+            //annuncia successo del task
+            Toast.makeText(this, "Sei molto vicino alla meta!" , Toast.LENGTH_LONG).show();
             currentStep++;
             setTopBarCounters();
         }
@@ -526,7 +544,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (requestCode == REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 String returnedResult = data.getData().toString();
-                stepController(Boolean.parseBoolean(returnedResult));
+                stepCountCamera(Boolean.parseBoolean(returnedResult));
             }
         }
     }
