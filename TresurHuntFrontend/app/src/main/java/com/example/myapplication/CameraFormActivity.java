@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 public class CameraFormActivity extends AppCompatActivity {
 
-    private final String alertMessageQuesiton = "Choose a question";
-    private final String alertMessageAnswer = "Choose an answer";
+    private final String alertMessageQuesiton = getString(R.string.choose_question);
+    private final String alertMessageAnswer = getString(R.string.choose_answer);
 
     private EditText questionDisplay;
     private ListView listView;

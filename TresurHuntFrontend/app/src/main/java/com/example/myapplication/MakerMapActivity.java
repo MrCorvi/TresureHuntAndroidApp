@@ -26,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
+import com.example.myapplication.models.GameInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,19 +43,15 @@ import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
-import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -65,9 +62,9 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     private int LAUNCH_CAMERA = 2;
     private int LAUNCH_RECAP = 3;
     private final int MIN_STEP = 2;
-    private final String alertMessage = "Add some step";
+    private final String alertMessage = getString(R.string.add_step);
 
-    private Game game;
+    private GameInfo game;
 
     private GoogleMap mMap;
     final static int PERMISSION_ALL = 1;
@@ -86,7 +83,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maker_map);
         Intent i = getIntent();
-        game = new Game(i.getStringExtra("gameName"));
+        game = new GameInfo(i.getStringExtra("gameName"));
         //mapFragment allows to manage map fragment retrieved
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -94,7 +91,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         //geocoder = new Geocoder(this, Locale.getDefault());
         //GameStepPosition = new HashMap<>();
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        mo = new MarkerOptions().position(new LatLng(0, 0)).title("My Current Location");
+        mo = new MarkerOptions().position(new LatLng(0, 0)).title(getString(R.string.current_location));
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionGranted()) {
             requestPermissions(PERMISSIONS, PERMISSION_ALL);
         } else {
@@ -259,10 +256,10 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
         if (checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            Log.v("mylog", "Permission is granted");
+            Log.v(getString(R.string.log), getString(R.string.permission_granted));
             return true;
         } else {
-            Log.v("mylog", "Permission not granted");
+            Log.v(getString(R.string.log), getString(R.string.permission_granted));
             return false;
         }
     }
@@ -270,14 +267,13 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
     private void showAlert(final int status) {
         String message, title, btnText;
         if (status == 1) {
-            message = "Your Locations Settings is set to 'Off'.\nPlease Enable Location to " +
-                    "use this app";
-            title = "Enable Location";
-            btnText = "Location Settings";
+            message = getString(R.string.permission_location);
+            title = getString(R.string.enabled_location);
+            btnText = getString(R.string.setting_location);
         } else {
-            message = "Please allow this app to access location!";
-            title = "Permission access";
-            btnText = "Grant";
+            message = getString(R.string.permission_message);
+            title = getString(R.string.permission_access);
+            btnText = getString(R.string.grant);
         }
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setCancelable(false);
@@ -293,7 +289,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
                             requestPermissions(PERMISSIONS, PERMISSION_ALL);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                         finish();
@@ -317,7 +313,7 @@ public class MakerMapActivity extends AppCompatActivity implements OnMapReadyCal
                     }
                     strAdd = strReturnedAddress.toString();
                 } else {
-                    strAdd = "Unknown place";
+                    strAdd = getString(R.string.unknown_place);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

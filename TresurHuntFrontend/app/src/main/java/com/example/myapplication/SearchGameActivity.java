@@ -20,7 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.myapplication.models.Game;
+import com.example.myapplication.models.GameClass;
 import com.example.myapplication.models.GlobalClass;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,7 +41,7 @@ public class SearchGameActivity extends AppCompatActivity {
 
 
     //list of games with all their proprieties
-    private List<Game> gameList;
+    private List<GameClass> gameList;
     //Is the index of the current selected gama in gameList
     //Set to -1, to mean that no  game was selected
     private int gameSelected = -1;
@@ -90,7 +90,7 @@ public class SearchGameActivity extends AppCompatActivity {
                 });
 
                 //Reset the list game
-                gameList = new ArrayList<Game>();
+                gameList = new ArrayList<GameClass>();
 
                 // Request a string response from the provided URL.
                 JsonObjectRequest stringRequest = new JsonObjectRequest(
@@ -118,7 +118,7 @@ public class SearchGameActivity extends AppCompatActivity {
                                         games.add(gameName+" ("+steps+" steps): "+gameId);
 
                                         //add game to internal game list
-                                        gameList.add(new Game(
+                                        gameList.add(new GameClass(
                                                 gameId,
                                                 gameName,
                                                 steps
@@ -176,7 +176,7 @@ public class SearchGameActivity extends AppCompatActivity {
 
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(SearchGameActivity.this, GameActivity.class);
-        Game game = gameList.get(gameSelected);
+        GameClass game = gameList.get(gameSelected);
         intent.putExtra("gameId", game.id);
         startActivity(intent);
     }

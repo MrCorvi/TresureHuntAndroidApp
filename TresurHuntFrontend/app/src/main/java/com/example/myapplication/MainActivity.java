@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         requestCameraPermissions();
     }
 
-
     public void joinButtonClick(View view){
         //Allow to switch from the current Activity to the next
         Intent intent = new Intent(MainActivity.this, SearchGameActivity.class);

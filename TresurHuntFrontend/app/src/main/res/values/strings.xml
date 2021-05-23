@@ -45,13 +45,27 @@
     <string name="hint">Hint</string>
     <string name="no_hint_message">Sorry, you already use your the hints</string>
     <string name="error_message">Sorry, is not in the word</string>
+    <string name="add_step">Add some step</string>
+    <string name="unknown_place">Unknown place</string>
+    <string name="min_length">Min length achieved</string>
 
     <string name="permission_need">Permission needed</string>
     <string name="permission_message">This permission is needed for use the game</string>
+    <string name="permission_access">Permission access</string>
     <string name="button_ok">Ok</string>
     <string name="button_cancel">Cancel</string>
+    <string name="grant">Grant</string>
     <string name="permission_granted">Permission Granted</string>
     <string name="permission_denied">Permission Denied</string>
+    <string name="choose_question">Choose a question</string>
+    <string name="choose_answer">Choose an answer</string>
+    <string name="choose_name">Choose a name</string>
+    <string name="current_location">"My Current Location"</string>
+    <string name="log">mylog</string>
+    <string name="enabled_location">Enable Location</string>
+    <string name="setting_location">Location Settings</string>
+    <string name="permission_location">Your Locations Settings is set to Off. Please Enable Location to use this app</string>
+
 
     <!--
         Examples of BackEnd String connections

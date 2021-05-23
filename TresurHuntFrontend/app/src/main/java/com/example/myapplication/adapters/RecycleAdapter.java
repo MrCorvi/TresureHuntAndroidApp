@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Game;
 import com.example.myapplication.R;
+import com.example.myapplication.models.GameInfo;
 
 import java.util.ArrayList;
 
@@ -21,10 +21,10 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     private final String alertMessage = "Min length achieved";
 
     private ArrayList<String> recapList;
-    private Game game;
+    private GameInfo game;
     private Context context;
 
-    public RecycleAdapter(ArrayList<String> recapList, Game game, Context context) {
+    public RecycleAdapter(ArrayList<String> recapList, GameInfo game, Context context) {
         this.recapList  = recapList ;
         this.game = game;
         this.context= context;

@@ -1,23 +1,23 @@
-package com.example.myapplication;
+package com.example.myapplication.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Game {
+public class GameInfo {
 
     private String gameName;
     private ArrayList<String> questions;
     private ArrayList<String> answers;
     private ArrayList<Boolean> stepTypes;
 
-    public Game(String gameName) {
+    public GameInfo(String gameName) {
         this.gameName = gameName;
         questions = new ArrayList<>();
         answers = new ArrayList<>();
         stepTypes = new ArrayList<>();
     }
 
-    public Game(String gameName,ArrayList<String> questions, ArrayList<String> answers, ArrayList<Boolean> stepTypes) {
+    public GameInfo(String gameName,ArrayList<String> questions, ArrayList<String> answers, ArrayList<Boolean> stepTypes) {
 
         this.gameName = gameName;
         this.questions = questions;
