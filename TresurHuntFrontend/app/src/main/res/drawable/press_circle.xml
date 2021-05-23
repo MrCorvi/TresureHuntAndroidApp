@@ -3,5 +3,7 @@
     <item android:drawable="@drawable/circle_press"
         android:state_pressed="true">
     </item>
+    <item android:state_enabled="false"
+        android:drawable="@drawable/circle_disabled"  />
     <item android:drawable="@drawable/circle"></item>
 </selector>

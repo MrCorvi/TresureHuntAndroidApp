@@ -262,11 +262,14 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void checkClick(View view){
 
+        //if we are at the end, don't do anything
+        if(currentStep >= stepList.size()){
+            return;
+        }
+
         //Distinguish between type of steps
         boolean success = false;
         Step c_step = stepList.get(currentStep);
-        //devo inizializzare la location relativa al prossimo step
-        Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
 
         System.out.println(c_step.answer);
         if(!c_step.isPositionQuestion){
@@ -274,6 +277,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             gameCameraButtonClick();
         }else{
             // TODO Gianmarco: controllare le le coordinate attuali sono vinine a quelle dello step on answer
+            //devo inizializzare la location relativa al prossimo step
+            Double[] latlng = getCoordinatesFromLocationString(c_step.answer);
             Location targetLocation = new Location("");//fictitious provider
             targetLocation.setLatitude(latlng[0]);//your coords of course
             targetLocation.setLongitude(latlng[1]);
@@ -324,6 +329,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public static Double[] getCoordinatesFromLocationString(String loc){
+        System.out.println(loc);
         loc = loc.split("\\(")[1];
         String[] loc_array = loc.substring(0,loc.length()-1).split(",");
         System.out.println(loc_array[0]);
@@ -461,7 +467,6 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
         pos_marker = mMap.addMarker(mo);
         //zoom sul cursore
         mMap.animateCamera( CameraUpdateFactory.zoomTo( 16.0f ) );
-
     }
 
     private boolean isLocationEnabled() {
