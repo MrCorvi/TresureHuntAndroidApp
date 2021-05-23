@@ -54,6 +54,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -65,6 +66,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     // Code Request
     static final int REQUEST_CODE = 0;
+    static final int REQUEST_HANGMAN = 1;
     private String backEndURL;
 
     private int gameId;
@@ -76,6 +78,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     private int maxPosSteps = 0;
     private int maxImgSteps = 0;
 
+    private int maxTries = 5;
     private int maxHints = 3;
     private int hints = maxHints;
     private int imageHintsUsed = 0;
@@ -92,6 +95,8 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
     final static int PERMISSION_ALL = 1;
     final static String[] PERMISSIONS = {android.Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION};
+
+    List<Character> usedlist = new ArrayList<Character>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,7 +213,7 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             criteria.setPowerRequirement(Criteria.POWER_HIGH);
             locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            mo = new MarkerOptions().position(new LatLng(0, 0)).title("My Current Location");
+            mo = new MarkerOptions().position(new LatLng(0, 0)).title(getString(R.string.current_location));
             f_up_pos = true;
             String provider = locationManager.getBestProvider(criteria, true);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -417,10 +422,15 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void hangmanButtonClick(){
         // Open GameCameraActivity
+        Bundle args_s = new Bundle();
+        args_s.putSerializable("ARRAYLIST",(Serializable)usedlist);
         Intent intent = new Intent(GameActivity.this, GameHangmanActivity.class);
         intent.putExtra("answer", stepList.get(currentStep).answer);
         intent.putExtra("hints", hints);
-        startActivity(intent);
+        intent.putExtra("maxTries", maxTries);
+        intent.putExtra("usedlist",args_s);
+
+        startActivityForResult(intent, REQUEST_HANGMAN);
     }
 
     private void gameCameraButtonClick(){
@@ -550,6 +560,15 @@ public class GameActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (resultCode == Activity.RESULT_OK) {
                 String returnedResult = data.getData().toString();
                 stepCountCamera(Boolean.parseBoolean(returnedResult));
+            }
+        } else if (requestCode == REQUEST_HANGMAN) {
+            if (resultCode == Activity.RESULT_OK) {
+                int returnedResult = data.getIntExtra("hints", 3);
+                maxTries = data.getIntExtra("maxTries", 5);
+                hints = returnedResult;
+
+                Bundle args_s = data.getBundleExtra("usedlist");
+                usedlist = (ArrayList<Character>) args_s.getSerializable("ARRAYLIST");
             }
         }
     }

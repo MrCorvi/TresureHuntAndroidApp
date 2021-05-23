@@ -1,0 +1,25 @@
+Marsha Gomez Gomez
+
+Number of commits: 46
+
+Lines of code: 
+	added:  1810
+	deleted: 834
+
+CODING ACTIVITIES
+
+ FrontEnd:
+     models/GlobalClass
+     GameActivity (Implementation Machine Learning Kit API)
+     GameCameraActivity
+     GameHangmanActivity
+     Gradle (implementation firebase google dependencies)
+		
+
+DIARY OF NON CODING ACTIVITIES
+
+     Study of Machine Learning Kit implementation
+     Configuration and installation of the fire-base console for ML Kit API 
+     Study of Mobile UX Design
+     Participation on Design and Prototyping of the mobile application
+     Participation on Writing of the Student Log Doc

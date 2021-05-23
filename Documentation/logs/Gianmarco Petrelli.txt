@@ -1,0 +1,29 @@
+Gianmarco Petrelli
+
+Number of commits: 12
+
+Lines of code: 
+	added:  1938
+	deleted: 142
+
+CODING ACTIVITIES
+
+	Spring Boot prototipation for backend
+	MySQl: update database script
+	Building of Google map project prototype
+	Android frontend side development:
+		AndroidManifest
+		MakerMapActivity (including layout)
+		GameActivity (including layout)
+		RecapActivity
+		Gradle file for dependencies and Google API key management files
+		
+
+DIARY OF NON CODING ACTIVITIES
+
+Team working for project specification and moke-up
+Use case definition
+Google API prototipation
+Google Cloud Platform:
+	Account activation
+	API services activation and management

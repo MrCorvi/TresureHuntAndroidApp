@@ -1,0 +1,34 @@
+Edoardo 
+
+Number of commits: 13
+
+Lines of code: 
+Backend:
+DemoApplication
+TreasureHunt
+TreasureHuntStep
+customObject
+TreasureBackend
+
+FrontEnd:
+FormMakerActivity
+CameraFormActivity
+PlaceFormActivity
+Game (outside models folder)
+MakerMapActivity (the skeleton, not implemented Google Maps or ML Kit API)
+RecycleAdapter
+RecapActivity (the skeleton, not implemented Google Maps)
+SuccessCreationActivity 
+
+added:  3392
+deleted: 280
+
+Diary of non coding activities
+definition and implementation of database on MySql
+configuration of pom.xml and persistence.xml to connect backend and database
+study of java persistence and hibernate on Visual Studio Code
+configuration to make static my private ip during testing on real device
+study of recycleview in android studio
+study of Volley
+study of JsonObject
+writing of the project description
