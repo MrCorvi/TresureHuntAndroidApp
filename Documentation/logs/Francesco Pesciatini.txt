@@ -1,0 +1,32 @@
+Francesco 
+
+Number of commits: 28
+9 merges commits
+
+
+Lines of code: 
+
+added:  5216
+deleted: 2084
+
+all the frontend project setup
+
+classes with respective xml layout:
+Game model
+GameStepAdapter
+GameActivity (Main scheleton, without the camera and map)
+ListViewActivity
+MainActivity
+SearchGameActivity
+SuccessActivity
+
+i did the restile of layouts for their final forms
+
+
+Diary of non coding activities
+search of the best language and platform where to develop the backend
+search on how to make the backend server accessible from my wifi network
+study and experimentation on the use of “Intent” in android studio
+reserch on Parcelable in android studio 
+user experience and interface design
+study of Volley
