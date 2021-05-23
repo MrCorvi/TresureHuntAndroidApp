@@ -59,7 +59,7 @@ public class GameHangmanActivity extends AppCompatActivity {
     }
 
     public void onHintClick(View v) {
-        if (hints < 0){
+        if (hints < 1){
             // imageView.setImageResource(R.drawable.hangma_0);
             hintButton.setEnabled(false);
             Toast.makeText(this, getString(R.string.no_hint_message), Toast.LENGTH_SHORT).show();
@@ -72,6 +72,8 @@ public class GameHangmanActivity extends AppCompatActivity {
             }
         }
         hints--;
+        // On-hot change the enabled button
+        if (hints == 0) {hintButton.setEnabled(false);}
     }
 
     public void onOkClick(View view) {
