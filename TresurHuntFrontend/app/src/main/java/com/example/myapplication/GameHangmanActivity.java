@@ -87,7 +87,6 @@ public class GameHangmanActivity extends AppCompatActivity {
     public void onOkClick(View view) {
         if(inputQuestion.getText().length() <= 0)
             return;
-
         checkChar(Character.toLowerCase(inputQuestion.getText().charAt(0)));
         inputQuestion.setText("");
     }
