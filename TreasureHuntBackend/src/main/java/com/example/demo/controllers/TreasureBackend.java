@@ -287,9 +287,50 @@ public class TreasureBackend {
 
     /* ImageLabeling Backend*/
 
+    /* Get list Label */
+    @GetMapping("/labels")
+    public JSONObject getImageLabel(){
+
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String returnMessage = "";
+        JSONObject response = new JSONObject();
+
+    	// the lowercase c refers to the object
+        String query = "SELECT new com.example.demo.models.ImageLabeling(t.idLabel, t.labelText) FROM ImageLabeling t";
+        // create a query using someJPQL, and this query will return instances of the TreasureHunt entity.
+        TypedQuery<ImageLabeling> tq = em.createQuery(query, ImageLabeling.class); 
+
+    	//List<ImageLabeling> th=null;
+        List<ImageLabeling> th=null;
+    	try {
+    		th = tq.getResultList();
+    		System.out.println(th.toString());
+    	}
+    	catch(NoResultException ex) {
+    		ex.printStackTrace();
+    	}
+    	finally {
+    		em.close();
+    	}
+        
+        JSONArray ja = new JSONArray();
+        for(int i=0; i<th.size(); i++){
+            //returnMessage += th.get(i).toString();
+            //if(i<th.size()-1)
+            //    returnMessage += ",";
+            ja.add(th.get(i).toJSON());
+        }
+        //returnMessage += "]}";
+        response.put("labels",ja);
+
+        return response;
+        ////return returnMessage;
+    }
+
     // Delete ImageLabeling list
     @RequestMapping(method=RequestMethod.DELETE, value="/label")
     public static void deleteImageLabel(@RequestParam int idLabel) {
+        String returnMessage = "";
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction et = null;
         
@@ -317,7 +358,4 @@ public class TreasureBackend {
             em.close();
         }
     }
-
-
-
 }
