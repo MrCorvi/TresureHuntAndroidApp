@@ -43,6 +43,12 @@ We create a prototype with the intuitive online tool [Proto.io](https://proto.io
 
 - - - -
 
+## Final Presentation
+
+This project was created with the main object of explore and use the sensors on a mobile environment. You can take a look of the final presentation on this [link](Documentation/Presentations/Treasure%20Hunt.pdf) and the final report [here](Documentation/Presentations/Outdoor%20Localization%20and%20Machine%20Learning-based.pdf)
+
+- - - -
+
 ## Credits
 
 This project was created by the following University of Pisa students:
