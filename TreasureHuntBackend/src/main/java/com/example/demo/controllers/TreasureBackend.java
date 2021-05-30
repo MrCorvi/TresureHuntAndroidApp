@@ -285,4 +285,39 @@ public class TreasureBackend {
         }
     }
 
+    /* ImageLabeling Backend*/
+
+    // Delete ImageLabeling list
+    @RequestMapping(method=RequestMethod.DELETE, value="/label")
+    public static void deleteImageLabel(@RequestParam int idLabel) {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction et = null;
+        
+        try {
+            et = em.getTransaction();
+            et.begin();
+            List<ImageLabeling> g = em.createQuery( "SELECT t FROM ImageLabeling t WHERE idLabel= :idLabel", ImageLabeling.class).
+                setParameter("idLabel", idLabel).getResultList();
+
+            for(int i=0; i<g.size(); i++){
+            
+                ImageLabeling th = (ImageLabeling) g.get(i);
+                em.remove(th);   // remove the ImageLabeling object
+            }
+            et.commit();
+
+        } catch (Exception ex) {
+            // If there is an exception rollback changes
+            if (et != null) {
+                et.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            // Close EntityManager
+            em.close();
+        }
+    }
+
+
+
 }
