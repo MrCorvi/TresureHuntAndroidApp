@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">Tresure Hunt</string>
+    <string name="joinTitle">Join Game</string>
+    <string name="app_label">Treasure Hunt</string>
+    <string name="joinSubmitGameButton">Join Game</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
+    <string name="title_list">List</string>
+    <string name="title_camera">Camera</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="noGameSelected">No game was selected</string>
+    <string name="make_button">Make</string>
+    <string name="play_button">Play</string>
+
+    <string name="continue_button">Continue</string>
+    <string name="place_button">Place</string>
+    <string name="camera_button">Camera</string>
+    <string name="finish_button">Finish</string>
+    <string name="confirm_button">Confirm</string>
+    <string name="delete_button">Delete</string>
+
+    <string name="game_text">Treasure Hunt Name</string>
+    <string name="game_display">Enter your Game name</string>
+
+    <string name="question_text">What is your question?</string>
+    <string name="answer_text">What is the answer?</string>
+    <string name="question_display">Question</string>
+    <string name="answer_display">Answer</string>
+
+    <string name="success_title">Treasure Hunt created! </string>
+    <string name="success_description">Congratulations! This is your GameId. It will be necessary to play. SAVE IT to do not forget it! </string>
+
+    <string name="recap_text">Treasure Hunt Recap</string>
+    <string name="SuccessTitle">You Won !!!</string>
+    <string name="goHomeButton">Home</string>
+
+    <string name="camera_description">Try to do a Picture of the Object you think is the solution</string>
+    <string name="found_image">Congratulations</string>
+    <string name="found_image_message">Well done! You found it!</string>
+    <string name="try_again">Try Again!</string>
+    <string name="try_again_message">You have to do it again, search more! You can found it!</string>
+
+    <string name="hangman">Hangman</string>
+    <string name="hangman_choose">Choose a Letter</string>
+    <string name="question_help">To find the answer, take a look at this hint</string>
+    <string name="hint">Hint</string>
+    <string name="no_hint_message">Sorry, you already use your the hints</string>
+    <string name="error_message">Sorry, is not in the word</string>
+    <string name="add_step">Add some step</string>
+    <string name="unknown_place">Unknown place</string>
+    <string name="min_length">Min length achieved</string>
+
+    <string name="permission_need">Permission needed</string>
+    <string name="permission_message">This permission is needed for use the game</string>
+    <string name="permission_access">Permission access</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="grant">Grant</string>
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="choose_question">Choose a question</string>
+    <string name="choose_answer">Choose an answer</string>
+    <string name="choose_name">Choose a name</string>
+    <string name="current_location">"My Current Location"</string>
+    <string name="log">mylog</string>
+    <string name="enabled_location">Enable Location</string>
+    <string name="setting_location">Location Settings</string>
+    <string name="permission_location">Your Locations Settings is set to Off. Please Enable Location to use this app</string>
+
+
+    <!--
+        Examples of BackEnd String connections
+        <string name="back_end_url">http://192.168.1.4:8080</string> 
+        <string name="back_end_url">http://10.0.2.2:8080</string>
+        <string name="back_end_url">http://10.0.2.2:8080/game</string>
+        <string name="back_end_url">https://postman-echo.com/get?foo1=bar1&foo2=bar2</string>
+        <string name="back_end_url">http://echo.jsontest.com/title/ipsum/content/blah</string>
+        <string name="back_end_url">http://localhost:8080</string>
+    -->
+    <string name="back_end_url">http://10.0.2.2:8080</string>
+</resources>
